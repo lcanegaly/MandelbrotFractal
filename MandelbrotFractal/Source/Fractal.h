@@ -2,12 +2,7 @@
 #include "glm.hpp"
 #include "Renderer.h"
 #include "Texture.h"
-
-struct Complex
-{
-	long double real;
-	long double imag;
-};
+#include <complex>
 
 class Fractal 
 {
@@ -24,14 +19,12 @@ public:
 	void display();
 
 	//takes pixel location and converts to point within drawing bounds
-	void translateCoord(Complex* comp, int x, int y);
+	void translateCoord(std::complex<double>* comp, int x, int y);
 
 private:
 	glm::vec2 bounds;
 	glm::vec2 screenSize;
 	Renderer renderer;
 	Texture texture;
-
-
 
 };

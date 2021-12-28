@@ -1,6 +1,6 @@
 #include "Fractal.h"
 #include <iostream>
-#include <complex>
+
 
 Fractal::Fractal(glm::vec2 screenSize, glm::vec2 bounds) : screenSize{ screenSize }, bounds{bounds}
 {
@@ -11,7 +11,8 @@ void Fractal::calculate()
 {
 	
 
-	Complex point;
+	//Complex point;
+	std::complex<double> point;
 	
 	for (int y = 0; y < 600; y++) 
 	{
@@ -19,7 +20,7 @@ void Fractal::calculate()
 		{
 			this->translateCoord(&point, x, y);
 			std::complex<double> value(0.0,0.0);
-			std::complex<double> pt(point.real, point.imag);
+			std::complex<double> pt(std::real(point), std::imag(point));
 			int iteration = 0;
 
 			while (std::real(value) < 2 && std::imag(value) < 2 && iteration <= 50)
@@ -65,16 +66,16 @@ void Fractal::display()
 	renderer.Draw(texture.getData(), screenSize.x, screenSize.y);
 }
 
-void Fractal::translateCoord(Complex* comp, int x, int y)
+void Fractal::translateCoord(std::complex<double>* comp, int x, int y)
 {
-	
+	std::complex<double> point(*comp);
 	long double multiplierx = (this->bounds.x / 800.0);
 	long double multipliery = (this->bounds.y / 600.0);
 
 	long double start = this->bounds.x * -0.5;
-	comp->real = start + (x * multiplierx);
+	comp->real(start + (x * multiplierx));
 
 	start = this->bounds.x * -0.5;
-	comp->imag = start + (y * multipliery);
+	comp->imag(start + (y * multipliery));
 
 }
