@@ -26,10 +26,6 @@ void Texture::setData(glm::vec3 color)
 	data[counter] = color.z;
 	++counter;
 
-	if (counter > 1440000)
-	{
-		counter = counter;
-	}
 }
 
 void Texture::clearData()
