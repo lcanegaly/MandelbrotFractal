@@ -14,4 +14,5 @@ public:
 private:
 	unsigned char* data = nullptr;
 	int counter = 0;
+	long dataSize = 0;
 };
