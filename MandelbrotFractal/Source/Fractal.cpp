@@ -26,13 +26,16 @@ void Fractal::calculate()
 				std::complex<double> pt(std::real(point), std::imag(point));
 				int iteration = 0;
 
-				while (std::real(value) < 2 && std::imag(value) < 2 && iteration <= 50)
+				while (std::real(value) < 2 && std::imag(value) < 2 && iteration <= 100)
 				{
 					value = value * value;
 					value = value + pt;
 					iteration++;
 				}
 
+				texture.setData(glm::vec3((2 * iteration), iteration, (255 - 2 * iteration)));
+
+				/*
 				if (iteration >= 40)
 				{
 					texture.setData(glm::vec3(255, 0, 0));
@@ -53,7 +56,7 @@ void Fractal::calculate()
 				{
 					texture.setData(glm::vec3(0, 0, 0));
 				}
-
+				*/
 			}
 		}
 	}
