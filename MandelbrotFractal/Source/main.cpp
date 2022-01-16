@@ -7,10 +7,13 @@
 #include <iostream>
 
 
-static void cursor_position_callback(GLFWwindow*, double, double);
-static void scroll_callback(GLFWwindow*, double, double);
+
+//static void scroll_callback(GLFWwindow*, double, double);
+static void key_callback(GLFWwindow*, int key, int scancode, int action, int mods);
+
 
 Fractal* fractal_ptr = nullptr;
+GLFWwindow* window = nullptr;
 
 int main(void)
 {
@@ -21,15 +24,17 @@ int main(void)
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	GLFWwindow* window = glfwCreateWindow(800, 600, "Mandelbrot Fractal Set Viewer", NULL, NULL);
+	window = glfwCreateWindow(400, 300, "Mandelbrot Fractal Set Viewer", NULL, NULL);
 	glfwMakeContextCurrent(window);
 
-	glfwSetCursorPosCallback(window, cursor_position_callback);
-	glfwSetScrollCallback(window, scroll_callback);
+	
+	//glfwSetScrollCallback(window, scroll_callback);
+	glfwSetKeyCallback(window, key_callback);
+
 
 	glewInit();
 
-	Fractal fractal(glm::vec2(800.0f, 600.0f), glm::vec2(2.0f, 2.0f));
+	Fractal fractal(glm::vec2(400.0f, 300.0f), glm::vec2(0.0f, 0.0f));
 	fractal_ptr = &fractal; 
 	fractal.calculate();
 
@@ -39,7 +44,7 @@ int main(void)
 		glClearColor(0.55f, 0.3f, 1.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 	
-		//fractal.calculate();
+		fractal.calculate();
 		fractal.display();
 
 		glfwSwapBuffers(window);
@@ -51,24 +56,42 @@ int main(void)
 	return 0;
 }
 
-static void cursor_position_callback(GLFWwindow*, double xpos, double ypos) 
-{
 
-	std::cout << xpos << " : " << ypos << std::endl;
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+	if (key == GLFW_KEY_LEFT && action == GLFW_PRESS)
+		fractal_ptr->setBounds(glm::vec2(-0.1, 0.0), 0);
+	
+	if (key == GLFW_KEY_RIGHT && action == GLFW_PRESS)
+		fractal_ptr->setBounds(glm::vec2(0.1, 0.0), 0);
+
+	if (key == GLFW_KEY_UP && action == GLFW_PRESS)
+		fractal_ptr->setBounds(glm::vec2(0.0, 0.1), 0);
+
+	if (key == GLFW_KEY_DOWN && action == GLFW_PRESS)
+		fractal_ptr->setBounds(glm::vec2(0.0, -0.1), 0);
+
+	if (key == GLFW_KEY_SPACE && action == GLFW_PRESS)
+		fractal_ptr->setBounds(glm::vec2(0.0, 0.0), -0.1);
+	
+	if (key == GLFW_KEY_LEFT_CONTROL && action == GLFW_PRESS)
+		fractal_ptr->setBounds(glm::vec2(0.0, 0.0), 0.1);
 
 }
 
+/*
 static void scroll_callback(GLFWwindow*, double xoffset, double yoffset) 
 {
 
+	double xpos, ypos;
+	glfwGetCursorPos(window, &xpos, &ypos);
+
 	std::cout << xoffset << " : " << yoffset << std::endl;
+	std::cout << xpos << " : " << ypos << std::endl;
 	std::complex<double> point;
+	fractal_ptr->translateCoord(&point, xpos, ypos);
 
-
-	if (yoffset > 0) 
-	{
-		fractal_ptr->setBounds(glm::vec2(1.0f, 1.0f));
-		//fractal_ptr->calculate();
-	}
+	fractal_ptr->setBounds(glm::vec2(std::real(point), std::imag(point)), yoffset);
 
 }
+*/

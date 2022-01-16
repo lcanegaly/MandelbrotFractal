@@ -7,7 +7,7 @@ Texture::Texture()
 
 void Texture::create(glm::vec2 size)
 {
-	long dataSize = (int)size.x * (int)size.y;
+	this->dataSize = (int)size.x * (int)size.y;
 	dataSize = dataSize * 3;
 	this->data = new unsigned char[dataSize];
 }
@@ -31,4 +31,7 @@ void Texture::setData(glm::vec3 color)
 void Texture::clearData()
 {
 	delete[] data;
+	this->data = new unsigned char[dataSize];
+	this->counter = 0;
+	//
 }

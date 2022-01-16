@@ -10,11 +10,11 @@ public:
 
 	
 
-	Fractal(glm::vec2 screenSize, glm::vec2 bounds);
+	Fractal(glm::vec2 screenSize, glm::vec2 centerPoint);
 	void calculate();
 
 	//sets the coordinate plane bounds
-	void setBounds(glm::vec2 bounds);
+	void setBounds(glm::vec2 centerPoint, double zoom);
 
 	void display();
 
@@ -22,9 +22,10 @@ public:
 	void translateCoord(std::complex<double>* comp, int x, int y);
 
 private:
-	glm::vec2 bounds;
+	glm::vec2 centerPoint;
+	double zoom;
 	glm::vec2 screenSize;
 	Renderer renderer;
 	Texture texture;
-
+	bool calculated = false;
 };
