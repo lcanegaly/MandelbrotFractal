@@ -24,7 +24,7 @@ int main(void)
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	window = glfwCreateWindow(800, 600, "Mandelbrot Fractal Set Viewer", NULL, NULL);
+	window = glfwCreateWindow(400, 300, "Mandelbrot Fractal Set Viewer", NULL, NULL);
 	glfwMakeContextCurrent(window);
 
 	
@@ -34,7 +34,7 @@ int main(void)
 
 	glewInit();
 
-	Fractal fractal(glm::vec2(800.0f, 600.0f), glm::vec2(0.0f, 0.0f));
+	Fractal fractal(glm::vec2(400.0f, 300.0f), glm::vec2(0.0f, 0.0f));
 	fractal_ptr = &fractal; 
 	fractal.calculate();
 

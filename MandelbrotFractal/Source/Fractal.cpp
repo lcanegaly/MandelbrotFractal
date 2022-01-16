@@ -17,9 +17,9 @@ void Fractal::calculate()
 		//Complex point;
 		std::complex<double> point;
 
-		for (int y = 0; y < 600; y++)
+		for (int y = 0; y < this->screenSize.y; y++)
 		{
-			for (int x = 0; x < 800; x++)
+			for (int x = 0; x < this->screenSize.x; x++)
 			{
 				this->translateCoord(&point, x, y);
 				std::complex<double> value(0.0, 0.0);
@@ -90,8 +90,8 @@ void Fractal::display()
 void Fractal::translateCoord(std::complex<double>* comp, int x, int y)
 {
 	std::complex<double> point(*comp);
-	long double multiplierx = (this->zoom / 800.0);
-	long double multipliery = (this->zoom / 600.0);
+	long double multiplierx = (this->zoom / this->screenSize.x);
+	long double multipliery = (this->zoom / this->screenSize.y);
 
 	long double start = this->zoom * -0.5 + this->centerPoint.x;
 	comp->real(start + (x * multiplierx));
