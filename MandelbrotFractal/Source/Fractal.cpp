@@ -1,5 +1,6 @@
 #include "Fractal.h"
 #include <iostream>
+#include <chrono>
 
 
 Fractal::Fractal(glm::vec2 screenSize, glm::vec2 centerPoint) : screenSize{ screenSize }, centerPoint{ centerPoint }
@@ -11,6 +12,7 @@ Fractal::Fractal(glm::vec2 screenSize, glm::vec2 centerPoint) : screenSize{ scre
 void Fractal::calculate()
 {
 	if (this->calculated == false) {
+		auto t1 = std::chrono::high_resolution_clock::now();
 		texture.clearData();
 		this->calculated = true;
 
@@ -59,6 +61,10 @@ void Fractal::calculate()
 				*/
 			}
 		}
+
+		auto t2 = std::chrono::high_resolution_clock::now();
+		std::chrono::duration<float, std::milli> ms_int = t2 - t1;
+		std::cout << "Calculation Time S: " << ms_int.count() / 1000 << std::endl;
 	}
 }
 

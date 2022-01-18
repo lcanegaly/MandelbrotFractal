@@ -8,6 +8,7 @@
 
 
 
+
 //static void scroll_callback(GLFWwindow*, double, double);
 static void key_callback(GLFWwindow*, int key, int scancode, int action, int mods);
 
@@ -46,6 +47,7 @@ int main(void)
 	
 		fractal.calculate();
 		fractal.display();
+	
 
 		glfwSwapBuffers(window);
 		
