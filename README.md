@@ -1,2 +1,2 @@
 # MandelbrotFractal
-C++ OpenGL Mandelbrot Set Viewer
+Simple C++ OpenGL Mandelbrot Set Viewer
