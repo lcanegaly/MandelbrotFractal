@@ -6,12 +6,7 @@
 #include "glm.hpp"
 #include <iostream>
 
-
-
-
-//static void scroll_callback(GLFWwindow*, double, double);
 static void key_callback(GLFWwindow*, int key, int scancode, int action, int mods);
-
 
 Fractal* fractal_ptr = nullptr;
 GLFWwindow* window = nullptr;
@@ -25,17 +20,13 @@ int main(void)
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	window = glfwCreateWindow(400, 300, "Mandelbrot Fractal Set Viewer", NULL, NULL);
+	window = glfwCreateWindow(1200, 1000, "Mandelbrot Fractal Set Viewer", NULL, NULL);
 	glfwMakeContextCurrent(window);
 
-	
-	//glfwSetScrollCallback(window, scroll_callback);
 	glfwSetKeyCallback(window, key_callback);
-
-
 	glewInit();
 
-	Fractal fractal(glm::vec2(400.0f, 300.0f), glm::vec2(0.0f, 0.0f));
+	Fractal fractal(glm::vec2(1200.0f, 1000.0f), glm::vec2(-0.5f, 0.0f));
 	fractal_ptr = &fractal; 
 	fractal.calculate();
 
@@ -47,7 +38,6 @@ int main(void)
 	
 		fractal.calculate();
 		fractal.display();
-	
 
 		glfwSwapBuffers(window);
 		
@@ -80,20 +70,3 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		fractal_ptr->setBounds(glm::vec2(0.0, 0.0), 0.1);
 
 }
-
-/*
-static void scroll_callback(GLFWwindow*, double xoffset, double yoffset) 
-{
-
-	double xpos, ypos;
-	glfwGetCursorPos(window, &xpos, &ypos);
-
-	std::cout << xoffset << " : " << yoffset << std::endl;
-	std::cout << xpos << " : " << ypos << std::endl;
-	std::complex<double> point;
-	fractal_ptr->translateCoord(&point, xpos, ypos);
-
-	fractal_ptr->setBounds(glm::vec2(std::real(point), std::imag(point)), yoffset);
-
-}
-*/

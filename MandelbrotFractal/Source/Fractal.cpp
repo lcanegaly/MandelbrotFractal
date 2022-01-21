@@ -28,8 +28,9 @@ void Fractal::calculate()
 				std::complex<double> pt(std::real(point), std::imag(point));
 				int iteration = 0;
 
-				while (std::real(value) < 2 && std::imag(value) < 2 && iteration <= 100)
+				while (std::real(value) + std::imag(value) < 4 && iteration <= 500)
 				{
+					
 					value = value * value;
 					value = value + pt;
 					iteration++;
@@ -37,28 +38,6 @@ void Fractal::calculate()
 
 				texture.setData(glm::vec3((2 * iteration), iteration, (255 - 2 * iteration)));
 
-				/*
-				if (iteration >= 40)
-				{
-					texture.setData(glm::vec3(255, 0, 0));
-				}
-				else if (iteration >= 30 && iteration < 40)
-				{
-					texture.setData(glm::vec3(0, 255, 0));
-				}
-				else if (iteration >= 20 && iteration < 30)
-				{
-					texture.setData(glm::vec3(0, 0, 255));
-				}
-				else if (iteration >= 10 && iteration < 20)
-				{
-					texture.setData(glm::vec3(0, 100, 100));
-				}
-				else if (iteration >= 0 && iteration < 10)
-				{
-					texture.setData(glm::vec3(0, 0, 0));
-				}
-				*/
 			}
 		}
 
@@ -82,9 +61,6 @@ void Fractal::setBounds(glm::vec2 centerPoint, double zoom)
 	{
 		this->zoom = this->zoom * 2;
 	}
-
-	std::cout << "Zoom : " << this->zoom << std::endl;
-	
 }
 
 

@@ -8,8 +8,6 @@ class Fractal
 {
 public:
 
-	
-
 	Fractal(glm::vec2 screenSize, glm::vec2 centerPoint);
 	void calculate();
 
