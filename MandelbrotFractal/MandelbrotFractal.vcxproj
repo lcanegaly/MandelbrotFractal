@@ -83,7 +83,7 @@
   <ItemGroup>
     <ClCompile Include="Source\Fractal.cpp" />
     <ClCompile Include="Source\Renderer.cpp" />
-    <ClCompile Include="Source\main.cpp" />
+    <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>

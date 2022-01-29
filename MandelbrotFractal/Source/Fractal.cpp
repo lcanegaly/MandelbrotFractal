@@ -1,5 +1,6 @@
 #include "Fractal.h"
 #include <iostream>
+#include <chrono>
 
 
 Fractal::Fractal(glm::vec2 screenSize, glm::vec2 centerPoint) : screenSize{ screenSize }, centerPoint{ centerPoint }
@@ -11,6 +12,7 @@ Fractal::Fractal(glm::vec2 screenSize, glm::vec2 centerPoint) : screenSize{ scre
 void Fractal::calculate()
 {
 	if (this->calculated == false) {
+		auto t1 = std::chrono::high_resolution_clock::now();
 		texture.clearData();
 		this->calculated = true;
 
@@ -26,8 +28,10 @@ void Fractal::calculate()
 				std::complex<double> pt(std::real(point), std::imag(point));
 				int iteration = 0;
 
-				while (std::real(value) < 2 && std::imag(value) < 2 && iteration <= 100)
+				this->iterationLimit = 1 / this->zoom * 40;
+				while (std::real(value) + std::imag(value) < 4 && iteration <= this->iterationLimit)
 				{
+					
 					value = value * value;
 					value = value + pt;
 					iteration++;
@@ -35,30 +39,12 @@ void Fractal::calculate()
 
 				texture.setData(glm::vec3((2 * iteration), iteration, (255 - 2 * iteration)));
 
-				/*
-				if (iteration >= 40)
-				{
-					texture.setData(glm::vec3(255, 0, 0));
-				}
-				else if (iteration >= 30 && iteration < 40)
-				{
-					texture.setData(glm::vec3(0, 255, 0));
-				}
-				else if (iteration >= 20 && iteration < 30)
-				{
-					texture.setData(glm::vec3(0, 0, 255));
-				}
-				else if (iteration >= 10 && iteration < 20)
-				{
-					texture.setData(glm::vec3(0, 100, 100));
-				}
-				else if (iteration >= 0 && iteration < 10)
-				{
-					texture.setData(glm::vec3(0, 0, 0));
-				}
-				*/
 			}
 		}
+
+		auto t2 = std::chrono::high_resolution_clock::now();
+		std::chrono::duration<float, std::milli> ms_int = t2 - t1;
+		std::cout << "Calculation Time S: " << ms_int.count() / 1000 << " Zoom : " << this->zoom << std::endl;
 	}
 }
 
@@ -76,9 +62,6 @@ void Fractal::setBounds(glm::vec2 centerPoint, double zoom)
 	{
 		this->zoom = this->zoom * 2;
 	}
-
-	std::cout << "Zoom : " << this->zoom << std::endl;
-	
 }
 
 

@@ -8,8 +8,6 @@ class Fractal
 {
 public:
 
-	
-
 	Fractal(glm::vec2 screenSize, glm::vec2 centerPoint);
 	void calculate();
 
@@ -24,6 +22,7 @@ public:
 private:
 	glm::vec2 centerPoint;
 	double zoom;
+	double iterationLimit = 500;
 	glm::vec2 screenSize;
 	Renderer renderer;
 	Texture texture;
