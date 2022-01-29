@@ -22,6 +22,7 @@ public:
 private:
 	glm::vec2 centerPoint;
 	double zoom;
+	double iterationLimit = 500;
 	glm::vec2 screenSize;
 	Renderer renderer;
 	Texture texture;

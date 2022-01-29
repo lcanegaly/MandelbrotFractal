@@ -28,7 +28,8 @@ void Fractal::calculate()
 				std::complex<double> pt(std::real(point), std::imag(point));
 				int iteration = 0;
 
-				while (std::real(value) + std::imag(value) < 4 && iteration <= 500)
+				this->iterationLimit = 1 / this->zoom * 40;
+				while (std::real(value) + std::imag(value) < 4 && iteration <= this->iterationLimit)
 				{
 					
 					value = value * value;
@@ -43,7 +44,7 @@ void Fractal::calculate()
 
 		auto t2 = std::chrono::high_resolution_clock::now();
 		std::chrono::duration<float, std::milli> ms_int = t2 - t1;
-		std::cout << "Calculation Time S: " << ms_int.count() / 1000 << std::endl;
+		std::cout << "Calculation Time S: " << ms_int.count() / 1000 << " Zoom : " << this->zoom << std::endl;
 	}
 }
 
