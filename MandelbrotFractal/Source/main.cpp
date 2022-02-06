@@ -5,11 +5,14 @@
 #include "Fractal.h"
 #include "glm.hpp"
 #include <iostream>
+#include "Gui.h"
 
+static void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 static void key_callback(GLFWwindow*, int key, int scancode, int action, int mods);
 
 Fractal* fractal_ptr = nullptr;
 GLFWwindow* window = nullptr;
+Gui* gui_ptr = nullptr;
 
 int main(void)
 {
@@ -24,20 +27,31 @@ int main(void)
 	glfwMakeContextCurrent(window);
 
 	glfwSetKeyCallback(window, key_callback);
+	glfwSetMouseButtonCallback(window, mouse_button_callback);
 	glewInit();
 
 	Fractal fractal(glm::vec2(1200.0f, 1000.0f), glm::vec2(-0.5f, 0.0f));
 	fractal_ptr = &fractal; 
 	fractal.calculate();
 
+	Gui gui;
+	gui_ptr = &gui;
+
+
 	while (!glfwWindowShouldClose(window))
 	{
+		
 
 		glClearColor(0.55f, 0.3f, 1.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 	
 		fractal.calculate();
 		fractal.display();
+
+		//test gui button
+		if (gui.Button(10, 10, 50, 50))
+			std::cout << "mouse click" << std::endl;
+		gui.resetGui();
 
 		glfwSwapBuffers(window);
 		
@@ -48,6 +62,11 @@ int main(void)
 	return 0;
 }
 
+void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
+{
+	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
+		gui_ptr->mouse_button_callback(0, 1, 0);
+}
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {

@@ -42,10 +42,10 @@ private:
 	const char* fragmentShaderSource = "#version 330 core\n"
 		"out vec4 FragColor;\n"
 		"in vec2 TexCoord;\n"
-		"uniform sampler2D ourTexture;\n"
+		"uniform sampler2D Texture;\n"
 		"void main()\n"
 		"{\n"
-		"	FragColor = texture(ourTexture, TexCoord);\n"
+		"	FragColor = texture(Texture, TexCoord);\n"
 		"}\0";
 
 	float texCoords[8] = {
