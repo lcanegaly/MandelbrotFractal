@@ -1,6 +1,6 @@
 # MandelbrotFractal
 Basic C++ OpenGL Mandelbrot Set Viewer  
-Uses - GFLW, GLM, GLEW  
+Uses - GLFW, GLM, GLEW  
 Generates fractal with basic escape time algorithm, writes directly to a texture.  
 Pan and zoom using arrow keys, space, ctrl. 
 
