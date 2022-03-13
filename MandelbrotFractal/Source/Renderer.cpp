@@ -8,7 +8,7 @@ Renderer::Renderer() {
 	
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_DYNAMIC_DRAW);
 	
 	unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
 	glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
@@ -49,13 +49,46 @@ Renderer::Renderer() {
 
 
 
-void Renderer::Draw(unsigned char* tex, int width, int height) {
+void Renderer::Draw(unsigned char* tex, int width, int height) 
+{
+	PrintStatus();
+	glUseProgram(program);
 
+	glBindVertexArray(vao);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_DYNAMIC_DRAW);
+
+	glBindTexture(GL_TEXTURE_2D, texture);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, tex);
 	glGenerateMipmap(GL_TEXTURE_2D);
 
-	glUseProgram(program);
-	glBindTexture(GL_TEXTURE_2D, texture);
-	glBindVertexArray(vao);
+	//glUseProgram(program);
+	//glBindTexture(GL_TEXTURE_2D, texture);
+	//glBindVertexArray(vao);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
+}
+
+void Renderer::Draw(unsigned char* tex, glm::vec2 pos, glm::vec2 size)
+{
+	PrintStatus();
+	glUseProgram(program);
+	glBindVertexArray(vao);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices2), vertices2, GL_DYNAMIC_DRAW);
+
+	glBindTexture(GL_TEXTURE_2D, texture);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, size.x, size.y, 0, GL_RGB, GL_UNSIGNED_BYTE, tex);
+	glGenerateMipmap(GL_TEXTURE_2D);
+
+	//glUseProgram(program);
+	//glBindTexture(GL_TEXTURE_2D, texture);
+	//glBindVertexArray(vao);
+	glDrawArrays(GL_TRIANGLES, 0, 6);
+}
+
+void Renderer::PrintStatus()
+{
+
+	std::cout << "Texture ID: " << this->texture << std::endl << "VAO: " << this->vao << std::endl << "VBO: " << this->vbo << std::endl;
+
 }

@@ -16,7 +16,6 @@ Gui* gui_ptr = nullptr;
 
 int main(void)
 {
-	
 	if (!glfwInit())
 		return -1;
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -37,11 +36,11 @@ int main(void)
 	Gui gui;
 	gui_ptr = &gui;
 
+	Gui gui2;
+	
 
 	while (!glfwWindowShouldClose(window))
 	{
-		
-
 		glClearColor(0.55f, 0.3f, 1.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 	
@@ -68,11 +67,11 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 	glfwGetCursorPos(window, &xpos, &ypos);
 
 	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
-		gui_ptr->mouse_button_callback(0, 1, xpos, ypos);
+		gui_ptr->addMouseInputEvent(0, 1, xpos, ypos);
 	}
 	
 	if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS) {
-		gui_ptr->mouse_button_callback(1, 1, xpos, ypos);
+		gui_ptr->addMouseInputEvent(1, 1, xpos, ypos);
 	}
 
 }

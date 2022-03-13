@@ -19,12 +19,13 @@ public:
 	//takes pixel location and converts to point within drawing bounds
 	void translateCoord(std::complex<double>* comp, int x, int y);
 
+	Renderer renderer;
 private:
 	glm::vec2 centerPoint;
 	double zoom;
 	double iterationLimit = 500;
 	glm::vec2 screenSize;
-	Renderer renderer;
+	
 	Texture texture;
 	bool calculated = false;
 };

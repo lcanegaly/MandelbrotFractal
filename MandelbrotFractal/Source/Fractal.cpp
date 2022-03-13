@@ -7,6 +7,8 @@ Fractal::Fractal(glm::vec2 screenSize, glm::vec2 centerPoint) : screenSize{ scre
 {
 	this->zoom = 2.0;
 	texture.createTexture(screenSize);
+
+	this->renderer.PrintStatus();
 }
 
 void Fractal::calculate()

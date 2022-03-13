@@ -1,5 +1,7 @@
 #pragma once
 #include "GL/glew.h"
+#include "glm.hpp"
+#include <iostream>
 
 class Renderer
 {
@@ -8,6 +10,10 @@ public:
 
 	Renderer();
 	void Draw(unsigned char* tex, int width, int height);
+
+	void Draw(unsigned char* tex, glm::vec2 pos, glm::vec2 size);
+
+	void PrintStatus();
 	
 private:
 
@@ -20,12 +26,25 @@ private:
 	// first triangle
 	 1.0f,  1.0f, 0.0f, 1.0f, 1.0f,  // top right
 	 1.0f, -1.0f, 0.0f, 1.0f, 0.0f, // bottom right
-	-1.0f,  1.0f, 0.0f, 0.0f, 1.0f,// top left 
+	-1.0f,  1.0f, 0.0f, 0.0f, 1.0f, // top left 
 	// second triangle
 	 1.0f, -1.0f, 0.0f, 1.0f, 0.0f, // bottom right
 	-1.0f, -1.0f, 0.0f, 0.0f, 0.0f, // bottom left
 	-1.0f,  1.0f, 0.0f, 0.0f, 1.0f // top left
 	};
+
+	
+	float vertices2[30] = {
+	// first triangle
+	 0.5f,  0.5f, 0.0f, 1.0f, 1.0f,  // top right
+	 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, // bottom right
+	-0.5f,  0.5f, 0.0f, 0.0f, 1.0f, // top left 
+	// second triangle
+	 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, // bottom right
+	-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, // bottom left
+	-0.5f,  0.5f, 0.0f, 0.0f, 1.0f // top left
+	};
+	
 
 
 	const char* vertexShaderSource = "#version 330 core\n"
@@ -48,13 +67,14 @@ private:
 		"	FragColor = texture(Texture, TexCoord);\n"
 		"}\0";
 
+	/*
 	float texCoords[8] = {
 	0.0f, 0.0f,
 	0.0f, 1.0f,
 	1.0f, 1.0f,
 	1.0f, 0.0f
 	};
-
+	*/
 
 };
 

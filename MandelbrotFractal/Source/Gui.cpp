@@ -1,6 +1,17 @@
 #include "Gui.h"
 
-void Gui::mouse_button_callback(int button, int action, double xpos, double ypos)
+Gui::Gui() 
+{
+	tex.createTexture(glm::vec2(100, 100));
+	for (int x = 0; x < (100 * 100); x++)
+	{
+		tex.setPixelColor(glm::vec3(3, 252, 207));
+	}
+
+	this->guiRenderer.PrintStatus();
+}
+
+void Gui::addMouseInputEvent(int button, int action, double xpos, double ypos)
 {
 
 	(button == 0 && action == 1) ? mouse.leftClick = true : mouse.leftClick = false;
@@ -12,6 +23,9 @@ void Gui::mouse_button_callback(int button, int action, double xpos, double ypos
 
 bool Gui::Button(int width, int height, int posx, int posy)
 {
+
+	guiRenderer.Draw(tex.getTexture(), glm::vec2(100, 100), glm::vec2(100, 100));
+
 	if (this->mouse.leftClick && mouse.mouseX - posx < width && mouse.mouseY - posy < height)
 		return true;
 	return false;
@@ -19,7 +33,5 @@ bool Gui::Button(int width, int height, int posx, int posy)
 
 void Gui::resetGui()
 {
-	this->mouse.leftClick = false;
-	this->mouse.mouseX = 0;
-	this->mouse.mouseY = 0;
+	mouse.Clear();
 }
