@@ -9,7 +9,7 @@ class Renderer
 public:
 
 	Renderer();
-	void Draw(unsigned char* tex, int width, int height);
+	void DrawFractal(unsigned char* tex, int windowWidth, int windowHeight);
 
 	void Draw(unsigned char* tex, glm::vec2 pos, glm::vec2 size);
 

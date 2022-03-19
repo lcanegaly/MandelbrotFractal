@@ -52,6 +52,10 @@ int main(void)
 			std::cout << "mouse click" << std::endl;
 		gui.resetGui();
 
+		if (gui2.Button(0.1f, 0.1f, -0.5f, -0.25f))
+			std::cout << "mouse click" << std::endl;
+		gui2.resetGui();
+		
 		glfwSwapBuffers(window);
 		
 		glfwPollEvents();

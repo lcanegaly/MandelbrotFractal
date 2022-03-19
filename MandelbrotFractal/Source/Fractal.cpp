@@ -69,7 +69,8 @@ void Fractal::setBounds(glm::vec2 centerPoint, double zoom)
 
 void Fractal::display()
 {
-	renderer.Draw(texture.getTexture(), screenSize.x, screenSize.y);
+	renderer.DrawFractal(texture.getTexture(), screenSize.x, screenSize.y);
+	//renderer.Draw(texture.getTexture(), glm::vec2(0.0f, 0.0f), glm::vec2(0.75f, 0.75f));
 }
 
 void Fractal::translateCoord(std::complex<double>* comp, int x, int y)

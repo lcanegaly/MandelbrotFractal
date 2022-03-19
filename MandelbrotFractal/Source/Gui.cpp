@@ -5,7 +5,7 @@ Gui::Gui()
 	tex.createTexture(glm::vec2(100, 100));
 	for (int x = 0; x < (100 * 100); x++)
 	{
-		tex.setPixelColor(glm::vec3(3, 252, 207));
+		tex.setPixelColor(glm::vec3(255, 0, 0));
 	}
 
 	this->guiRenderer.PrintStatus();
