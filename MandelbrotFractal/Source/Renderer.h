@@ -51,9 +51,11 @@ private:
     "layout (location = 0) in vec3 aPos;\n"
 	"layout (location = 1) in vec2 aTexCoord;\n"
 	"out vec2 TexCoord;\n"
+	"uniform mat4 translate;\n"
     "void main()\n"
     "{\n"
-    "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+    //"   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+		"gl_Position = translate * vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
 		"TexCoord = aTexCoord;\n"
 		"}\0";
 

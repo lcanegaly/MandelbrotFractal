@@ -21,12 +21,12 @@ void Gui::addMouseInputEvent(int button, int action, double xpos, double ypos)
 
 }
 
-bool Gui::Button(int width, int height, int posx, int posy)
+bool Gui::Button(float width, float height, float posX, float posY)
 {
 
-	guiRenderer.Draw(tex.getTexture(), glm::vec2(100, 100), glm::vec2(100, 100));
+	guiRenderer.Draw(tex.getTexture(), glm::vec2(posX, posY), glm::vec2(width, height));
 
-	if (this->mouse.leftClick && mouse.mouseX - posx < width && mouse.mouseY - posy < height)
+	if (this->mouse.leftClick && mouse.mouseX - posX < width && mouse.mouseY - posY < height)
 		return true;
 	return false;
 }

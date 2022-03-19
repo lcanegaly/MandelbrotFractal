@@ -48,7 +48,7 @@ int main(void)
 		fractal.display();
 
 		//test gui button
-		if (gui.Button(10, 10, 50, 50))
+		if (gui.Button(0.1f, 0.1f, -0.5f, 0.1f))
 			std::cout << "mouse click" << std::endl;
 		gui.resetGui();
 
