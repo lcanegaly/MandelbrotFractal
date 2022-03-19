@@ -13,6 +13,8 @@ public:
 
 	void Draw(unsigned char* tex, glm::vec2 pos, glm::vec2 size);
 
+	void SetActiveTexture(int texSlot);
+
 	void PrintStatus();
 	
 private:
@@ -20,7 +22,7 @@ private:
 	GLuint vbo;
 	unsigned int vao;
 	GLuint program;
-	unsigned int texture;
+	GLuint texture;
 
 	float vertices[30] = {
 	// first triangle

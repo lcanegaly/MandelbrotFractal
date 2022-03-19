@@ -18,15 +18,15 @@ class Gui
 public:
 	Gui();
 	void addMouseInputEvent(int button, int action, double xpos, double ypos);
-	bool Button(float width, float height, float posX, float posY);
+	bool Button(float width, float height, float posX, float posY, int texture);
 	void resetGui();
-	
+	Renderer* guiRenderer;
 
 private:
 
 	mouseInput mouse;
-	Renderer guiRenderer;
 	Texture tex;
-
+	Texture tex2;
+	Texture tex3;
 };
 

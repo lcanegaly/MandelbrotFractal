@@ -2,13 +2,26 @@
 
 Gui::Gui() 
 {
+	//1200, 1000 window size
 	tex.createTexture(glm::vec2(100, 100));
 	for (int x = 0; x < (100 * 100); x++)
 	{
 		tex.setPixelColor(glm::vec3(255, 0, 0));
 	}
 
-	this->guiRenderer.PrintStatus();
+	tex2.createTexture(glm::vec2(100, 100));
+	for (int x = 0; x < (100 * 100); x++)
+	{
+		tex2.setPixelColor(glm::vec3(0, 255, 0));
+	}
+	tex3.createTexture(glm::vec2(100, 100));
+	for (int x = 0; x < (100 * 100); x++)
+	{
+		tex3.setPixelColor(glm::vec3(0, 0, 255));
+	}
+
+	this->resetGui();
+	//this->guiRenderer->PrintStatus();
 }
 
 void Gui::addMouseInputEvent(int button, int action, double xpos, double ypos)
@@ -21,10 +34,17 @@ void Gui::addMouseInputEvent(int button, int action, double xpos, double ypos)
 
 }
 
-bool Gui::Button(float width, float height, float posX, float posY)
+bool Gui::Button(float width, float height, float posX, float posY, int texure)
 {
-
-	guiRenderer.Draw(tex.getTexture(), glm::vec2(posX, posY), glm::vec2(width, height));
+	if (texure == 1) {
+		guiRenderer->Draw(tex.getTexture(), glm::vec2(posX, posY), glm::vec2(width, height));
+	}
+	if (texure == 2) {
+		guiRenderer->Draw(tex2.getTexture(), glm::vec2(posX, posY), glm::vec2(width, height));
+	}
+	if (texure == 3) {
+		guiRenderer->Draw(tex3.getTexture(), glm::vec2(posX, posY), glm::vec2(width, height));
+	}
 
 	if (this->mouse.leftClick && mouse.mouseX - posX < width && mouse.mouseY - posY < height)
 		return true;

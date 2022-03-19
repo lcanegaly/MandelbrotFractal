@@ -8,7 +8,6 @@ Fractal::Fractal(glm::vec2 screenSize, glm::vec2 centerPoint) : screenSize{ scre
 	this->zoom = 2.0;
 	texture.createTexture(screenSize);
 
-	this->renderer.PrintStatus();
 }
 
 void Fractal::calculate()
@@ -69,8 +68,9 @@ void Fractal::setBounds(glm::vec2 centerPoint, double zoom)
 
 void Fractal::display()
 {
-	renderer.DrawFractal(texture.getTexture(), screenSize.x, screenSize.y);
-	//renderer.Draw(texture.getTexture(), glm::vec2(0.0f, 0.0f), glm::vec2(0.75f, 0.75f));
+	//renderer->SetActiveTexture(1);
+	renderer->DrawFractal(texture.getTexture(), screenSize.x, screenSize.y);
+	//renderer->Draw(texture.getTexture(), glm::vec2(0.0f, 0.0f), glm::vec2(0.25f, 0.25f));
 }
 
 void Fractal::translateCoord(std::complex<double>* comp, int x, int y)

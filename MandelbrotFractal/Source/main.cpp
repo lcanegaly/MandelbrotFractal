@@ -29,14 +29,17 @@ int main(void)
 	glfwSetMouseButtonCallback(window, mouse_button_callback);
 	glewInit();
 
+	Renderer renderer;
+
 	Fractal fractal(glm::vec2(1200.0f, 1000.0f), glm::vec2(-0.5f, 0.0f));
+	fractal.renderer = &renderer;
 	fractal_ptr = &fractal; 
 	fractal.calculate();
 
 	Gui gui;
 	gui_ptr = &gui;
+	gui.guiRenderer = &renderer;
 
-	Gui gui2;
 	
 
 	while (!glfwWindowShouldClose(window))
@@ -46,19 +49,24 @@ int main(void)
 	
 		fractal.calculate();
 		fractal.display();
-
+		
 		//test gui button
-		if (gui.Button(0.1f, 0.1f, -0.5f, 0.1f))
+		if (gui.Button(0.1f, 0.1f, -0.5f, -0.75f, 1))
 			std::cout << "mouse click" << std::endl;
 		gui.resetGui();
 
-		if (gui2.Button(0.1f, 0.1f, -0.5f, -0.25f))
+		if (gui.Button(0.1f, 0.1f, 0.5f, -0.75f, 2))
 			std::cout << "mouse click" << std::endl;
-		gui2.resetGui();
-		
+		gui.resetGui();
+
+		if (gui.Button(0.1f, 0.1f, -0.5f, 0.0f, 3))
+			std::cout << "mouse click" << std::endl;
+		gui.resetGui();
+
 		glfwSwapBuffers(window);
 		
 		glfwPollEvents();
+		
 	}
 
 	glfwTerminate();

@@ -39,7 +39,8 @@ Renderer::Renderer() {
 
 
 	//texture
-	glGenTextures(1, &texture);
+	glGenTextures(2, &texture);
+	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, texture);
 
 	//set texture wrapping
@@ -49,29 +50,15 @@ Renderer::Renderer() {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
+
+	glBindVertexArray(0);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+
 };
 
 
-/*
-void Renderer::Draw(unsigned char* tex, int width, int height) 
-{
-	
-	glUseProgram(program);
-
-	glBindVertexArray(vao);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_DYNAMIC_DRAW);
-
-	glBindTexture(GL_TEXTURE_2D, texture);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, tex);
-	glGenerateMipmap(GL_TEXTURE_2D);
-
-	//glUseProgram(program);
-	//glBindTexture(GL_TEXTURE_2D, texture);
-	//glBindVertexArray(vao);
-	glDrawArrays(GL_TRIANGLES, 0, 6);
-}
-*/
 
 void Renderer::DrawFractal(unsigned char* tex, int windowWidth, int windowHeight)
 {
@@ -84,16 +71,15 @@ void Renderer::DrawFractal(unsigned char* tex, int windowWidth, int windowHeight
 
 	glUseProgram(program);
 	glBindVertexArray(vao);
-
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_DYNAMIC_DRAW);
-
-	glBindTexture(GL_TEXTURE_2D, texture);
+	glBindTexture(GL_TEXTURE_2D, this->texture);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, windowWidth, windowHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, tex);
 	glGenerateMipmap(GL_TEXTURE_2D);
 
 
 	glDrawArrays(GL_TRIANGLES, 0, 6);
+	glBindVertexArray(0);
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void Renderer::Draw(unsigned char* tex, glm::vec2 pos, glm::vec2 size)
@@ -107,16 +93,33 @@ void Renderer::Draw(unsigned char* tex, glm::vec2 pos, glm::vec2 size)
 
 	glUseProgram(program);
 	glBindVertexArray(vao);
-
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices2), vertices2, GL_DYNAMIC_DRAW);
-
-	glBindTexture(GL_TEXTURE_2D, texture);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, size.x, size.y, 0, GL_RGB, GL_UNSIGNED_BYTE, tex);
+	glBindTexture(GL_TEXTURE_2D, this->texture);
+	
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 100, 100, 0, GL_RGB, GL_UNSIGNED_BYTE, tex);
 	glGenerateMipmap(GL_TEXTURE_2D);
 
 
 	glDrawArrays(GL_TRIANGLES, 0, 6);
+	glBindVertexArray(0);
+	glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+void Renderer::SetActiveTexture(int texSlot)
+{
+	switch (texSlot) 
+	{
+	case 0: glActiveTexture(GL_TEXTURE0);
+		break;
+
+	case 1: glActiveTexture(GL_TEXTURE1);
+		break;
+
+	default: glActiveTexture(GL_TEXTURE3);
+		break;
+	}
+	
+
 }
 
 void Renderer::PrintStatus()
