@@ -8,17 +8,18 @@ class Renderer
 
 public:
 
-	Renderer();
+	Renderer(int width, int height);
 	void DrawFractal(unsigned char* tex, int windowWidth, int windowHeight);
-
-	void Draw(unsigned char* tex, glm::vec2 pos, glm::vec2 size);
-
+	void Draw(unsigned char* tex, int posX, int posY, int width, int height);
 	void SetActiveTexture(int texSlot);
-
 	void PrintStatus();
+	
+	glm::vec2 ConvertNormToPixel(glm::vec2 xy);
+	glm::vec2 ConvertPixelToNorm(int x, int y);
 	
 private:
 
+	int width, height;
 	GLuint vbo;
 	unsigned int vao;
 	GLuint program;

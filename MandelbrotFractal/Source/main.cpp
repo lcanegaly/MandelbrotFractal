@@ -7,12 +7,16 @@
 #include <iostream>
 #include "Gui.h"
 
+#define WIDTH 1200
+#define HEIGHT 1000
+
 static void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 static void key_callback(GLFWwindow*, int key, int scancode, int action, int mods);
 
 Fractal* fractal_ptr = nullptr;
 GLFWwindow* window = nullptr;
 Gui* gui_ptr = nullptr;
+
 
 int main(void)
 {
@@ -22,16 +26,16 @@ int main(void)
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	window = glfwCreateWindow(1200, 1000, "Mandelbrot Fractal Set Viewer", NULL, NULL);
+	window = glfwCreateWindow(WIDTH, HEIGHT, "Mandelbrot Fractal Set Viewer", NULL, NULL);
 	glfwMakeContextCurrent(window);
 
 	glfwSetKeyCallback(window, key_callback);
 	glfwSetMouseButtonCallback(window, mouse_button_callback);
 	glewInit();
 
-	Renderer renderer;
+	Renderer renderer(WIDTH, HEIGHT);
 
-	Fractal fractal(glm::vec2(1200.0f, 1000.0f), glm::vec2(-0.5f, 0.0f));
+	Fractal fractal(glm::vec2(WIDTH, HEIGHT), glm::vec2(-0.5f, 0.0f));
 	fractal.renderer = &renderer;
 	fractal_ptr = &fractal; 
 	fractal.calculate();
@@ -40,7 +44,8 @@ int main(void)
 	gui_ptr = &gui;
 	gui.guiRenderer = &renderer;
 
-	
+	//std::cout << renderer.ConvertNormToPixel(-0.25f, 0.5f).x << std::endl;
+	std::cout << renderer.ConvertPixelToNorm(300, 600).x << std::endl;
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -51,10 +56,10 @@ int main(void)
 		fractal.display();
 		
 		//test gui button
-		if (gui.Button(0.1f, 0.1f, -0.5f, -0.75f, 1))
+		if (gui.Button(300, 300, 600, 500, 2))
 			std::cout << "mouse click" << std::endl;
 		gui.resetGui();
-
+		/*
 		if (gui.Button(0.1f, 0.1f, 0.5f, -0.75f, 2))
 			std::cout << "mouse click" << std::endl;
 		gui.resetGui();
@@ -62,7 +67,7 @@ int main(void)
 		if (gui.Button(0.1f, 0.1f, -0.5f, 0.0f, 3))
 			std::cout << "mouse click" << std::endl;
 		gui.resetGui();
-
+		*/
 		glfwSwapBuffers(window);
 		
 		glfwPollEvents();

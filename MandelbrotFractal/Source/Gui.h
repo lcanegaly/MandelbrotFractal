@@ -18,7 +18,7 @@ class Gui
 public:
 	Gui();
 	void addMouseInputEvent(int button, int action, double xpos, double ypos);
-	bool Button(float width, float height, float posX, float posY, int texture);
+	bool Button(int width, int height, int posX, int posY, int texture);
 	void resetGui();
 	Renderer* guiRenderer;
 

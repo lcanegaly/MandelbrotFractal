@@ -4,7 +4,8 @@
 #include <gtc/type_ptr.hpp>
 #include <gtc/matrix_transform.hpp>
 
-Renderer::Renderer() {
+Renderer::Renderer(int width, int height) : width { width },  height { height } {
+
 
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
@@ -82,11 +83,16 @@ void Renderer::DrawFractal(unsigned char* tex, int windowWidth, int windowHeight
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void Renderer::Draw(unsigned char* tex, glm::vec2 pos, glm::vec2 size)
+void Renderer::Draw(unsigned char* tex, int posX, int posY, int width, int height)
 {
 
+	glm::vec2 position = ConvertPixelToNorm(posX, posY);
+	glm::vec2 size;
+	size.x = (float)width / (float)this->width;
+	size.y = (float)height / (float)this->height;
+
 	glm::mat4 model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(pos, 0.0f));
+	model = glm::translate(model, glm::vec3(position, 0.0f));
 	model = glm::scale(model, glm::vec3(size, 1.0f));
 	GLint uniformTranslate = glGetUniformLocation(this->program, "translate");
 	glUniformMatrix4fv(uniformTranslate, 1, GL_FALSE, glm::value_ptr(model));
@@ -96,7 +102,8 @@ void Renderer::Draw(unsigned char* tex, glm::vec2 pos, glm::vec2 size)
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glBindTexture(GL_TEXTURE_2D, this->texture);
 	
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 100, 100, 0, GL_RGB, GL_UNSIGNED_BYTE, tex);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, tex);
 	glGenerateMipmap(GL_TEXTURE_2D);
 
 
@@ -129,4 +136,23 @@ void Renderer::PrintStatus()
 
 }
 
+glm::vec2 Renderer::ConvertNormToPixel(glm::vec2 xy)
+{
+
+	float outX = ((xy.x + 1.0f) / 2.0f) * this->width;
+	float outY = ((xy.y + 1.0f) / 2.0f) * this->height;
+
+	return glm::vec2(outX, outY);
+
+}
+
+glm::vec2 Renderer::ConvertPixelToNorm(int x, int y)
+{
+	
+	float outX = (((float)x / (float)this->width)*2) - 1;
+	float outY = (((float)y / (float)this->height) * 2) - 1;
+
+	return glm::vec2(outX, outY);
+	
+}
 
