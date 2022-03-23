@@ -141,6 +141,7 @@ glm::vec2 Renderer::ConvertNormToPixel(glm::vec2 xy)
 
 	float outX = ((xy.x + 1.0f) / 2.0f) * this->width;
 	float outY = ((xy.y + 1.0f) / 2.0f) * this->height;
+	outY = outY * -1; //flip y for drawing
 
 	return glm::vec2(outX, outY);
 
@@ -151,6 +152,7 @@ glm::vec2 Renderer::ConvertPixelToNorm(int x, int y)
 	
 	float outX = (((float)x / (float)this->width)*2) - 1;
 	float outY = (((float)y / (float)this->height) * 2) - 1;
+	outY = outY * -1; //flip y for drawing
 
 	return glm::vec2(outX, outY);
 	

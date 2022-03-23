@@ -25,8 +25,8 @@ void Fractal::calculate()
 			for (int x = 0; x < this->screenSize.x; x++)
 			{
 				this->translateCoord(&point, x, y);
-				std::complex<double> value(0.0, 0.0);
-				std::complex<double> pt(std::real(point), std::imag(point));
+				std::complex<long double> value(0.0, 0.0);
+				std::complex<long double> pt(std::real(point), std::imag(point));
 				int iteration = 0;
 
 				this->iterationLimit = 1 / this->zoom * 40;
@@ -57,11 +57,11 @@ void Fractal::setBounds(glm::vec2 centerPoint, double zoom)
 	this->centerPoint += centerPoint * glm::vec2(this->zoom, this->zoom);
 	if (zoom > 0)
 	{
-		this->zoom = this->zoom / 2;
+		this->zoom = this->zoom / 1.1;
 	}
 	if (zoom < 0)
 	{
-		this->zoom = this->zoom * 2;
+		this->zoom = this->zoom * 1.1;
 	}
 }
 

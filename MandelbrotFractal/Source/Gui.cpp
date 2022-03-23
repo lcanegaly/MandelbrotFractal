@@ -1,4 +1,5 @@
 #include "Gui.h"
+#include <cmath>
 
 Gui::Gui() 
 {
@@ -37,24 +38,27 @@ void Gui::addMouseInputEvent(int button, int action, double xpos, double ypos)
 
 bool Gui::Button(int width, int height, int posX, int posY, int texure)
 {
-
-	tex.createTexture(glm::vec2(width, height));
-	for (int x = 0; x < (width * height); x++)
+	if (!drawn)
 	{
-		tex.setPixelColor(glm::vec3(255, 0, 0));
-	}
+		drawn = true;
+		tex.createTexture(glm::vec2(width, height));
+		for (int x = 0; x < (width * height); x++)
+		{
+			tex.setPixelColor(glm::vec3(255, 0, 0));
+		}
 
-	tex2.createTexture(glm::vec2(width, height));
-	for (int x = 0; x < (width * height); x++)
-	{
-		tex2.setPixelColor(glm::vec3(0, 255, 0));
-	}
-	tex3.createTexture(glm::vec2(width, height));
-	for (int x = 0; x < (width * height); x++)
-	{
-		tex3.setPixelColor(glm::vec3(0, 0, 255));
-	}
+		tex2.createTexture(glm::vec2(width, height));
+		for (int x = 0; x < (width * height); x++)
+		{
+			tex2.setPixelColor(glm::vec3(0, 255, 0));
+		}
+		tex3.createTexture(glm::vec2(width, height));
+		for (int x = 0; x < (width * height); x++)
+		{
+			tex3.setPixelColor(glm::vec3(0, 0, 255));
+		}
 
+	}
 	//convert pixel to normalized to pass to draw call.
 
 	if (texure == 1) {
@@ -72,13 +76,31 @@ bool Gui::Button(int width, int height, int posX, int posY, int texure)
 
 
 
-	if (this->mouse.leftClick && mouse.mouseX - posX < width && mouse.mouseY - posY < height)
-		return true;
+	if (this->mouse.leftClick) {
+
+		
+		int x = std::abs(mouse.mouseX - posX);
+		int y = std::abs(mouse.mouseY - posY);
+
+		/*
+		printf("Mouse pos is X:%f Y:%f \n", mouse.mouseX, mouse.mouseY);
+		printf("Mouse offset is X:%d Y:%d \n", x, y);
+		printf("Mouse Box is X:%d Y:%d \n", posX, posY);
+		*/
+
+		if ( (x <= 0.5 * width) && ( y <= 0.5 * height ))
+		{
+			return true;
+		}
+			
+	}
+
 	return false;
 }
 
 void Gui::resetGui()
 {
+	drawn = false;
 	mouse.Clear();
 	tex.clearTexture();
 	tex2.clearTexture();

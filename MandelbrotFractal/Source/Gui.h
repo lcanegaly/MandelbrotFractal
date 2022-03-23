@@ -23,7 +23,7 @@ public:
 	Renderer* guiRenderer;
 
 private:
-
+	bool drawn = false;
 	mouseInput mouse;
 	Texture tex;
 	Texture tex2;
