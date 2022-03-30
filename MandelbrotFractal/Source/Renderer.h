@@ -63,6 +63,46 @@ private:
 		"}\0";
 
 
+
+	const char* fragmentShaderSource = "#version 330 core\n"
+		"out vec4 FragColor;\n"
+		"in vec2 TexCoord;\n"
+		//"uniform sampler2D Texture;\n"
+		"void main()\n"
+		"{\n"
+		"vec2 uv = vec2(TexCoord.x * 3.0, TexCoord.y*3.0);\n"
+		"uv = uv - vec2(1.5, 1.5);\n"
+		"float x = 0.0;\n"
+    	"float y = 0.0;\n"
+    	"float cx = uv.x;\n"
+    	"float cy = uv.y;\n"
+    	"float it = 0.0;\n"
+
+    	"while (x*x + y*y <= 2.0*2.0 && it < 1000.0)\n"
+    	"{\n"
+        	"float xtemp = x*x - y*y + cx;\n"
+        	"y = 2.0*x*y + cy;\n"
+        	"x = xtemp;\n"
+        	"it = it + 1.0;\n"
+   	 	"}\n"
+
+		"vec3 col = vec3(1.0*uv.x, 1.0*uv.y, 0.0);\n"
+    
+
+    	"if (it > 501.0)\n"
+    	"{\n"
+    	"col = vec3(1.0, 1.0, 1.0);\n"
+    	"}\n"
+    	"if (it < 500.0)\n"
+    	"{\n"
+    	"col = vec3(0.0, 0.0, 1.0);\n"
+    	"}\n"
+
+		"FragColor = vec4(col, 1.0);\n"
+		"}\0";
+
+
+/*
 	const char* fragmentShaderSource = "#version 330 core\n"
 		"out vec4 FragColor;\n"
 		"in vec2 TexCoord;\n"
@@ -71,15 +111,5 @@ private:
 		"{\n"
 		"	FragColor = texture(Texture, TexCoord);\n"
 		"}\0";
-
-	/*
-	float texCoords[8] = {
-	0.0f, 0.0f,
-	0.0f, 1.0f,
-	1.0f, 1.0f,
-	1.0f, 0.0f
-	};
-	*/
-
+*/
 };
-

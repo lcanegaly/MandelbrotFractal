@@ -1,0 +1,1 @@
+/bin/x86_64-linux-gnu-g++-9  -g  -rdynamic CMakeFiles/Fractal.dir/main.cpp.o CMakeFiles/Fractal.dir/Fractal.cpp.o CMakeFiles/Fractal.dir/Gui.cpp.o CMakeFiles/Fractal.dir/Renderer.cpp.o CMakeFiles/Fractal.dir/Texture.cpp.o  -o Fractal  ../../Dependencies/glfw-3.3.6/src/libglfw3.a -lGLEW -lGLU -lGL -lrt -lm -ldl -lX11 -lpthread 

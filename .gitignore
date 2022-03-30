@@ -1,3 +1,5 @@
+# Media
+*.jpg
 
 # Prerequisites
 *.d
@@ -34,6 +36,7 @@
 
 
 Dependencies/
+Include/
 x64/
 vs/
 .vs/

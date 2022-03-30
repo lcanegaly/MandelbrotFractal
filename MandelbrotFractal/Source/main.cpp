@@ -45,14 +45,14 @@ int main(void)
 	gui.guiRenderer = &renderer;
 
 	//std::cout << renderer.ConvertNormToPixel(-0.25f, 0.5f).x << std::endl;
-	std::cout << renderer.ConvertPixelToNorm(300, 600).x << std::endl;
+	//std::cout << renderer.ConvertPixelToNorm(300, 600).x << std::endl;
 
 	while (!glfwWindowShouldClose(window))
 	{
 		glClearColor(0.55f, 0.3f, 1.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 	
-		fractal.calculate();
+	//	fractal.calculate();
 		fractal.display();
 		
 
