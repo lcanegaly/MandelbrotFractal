@@ -37,6 +37,7 @@
 
 Dependencies/
 Include/
+build/
 x64/
 vs/
 .vs/
