@@ -69,6 +69,12 @@ void Renderer::DrawFractal(unsigned char* tex, int windowWidth, int windowHeight
 	//model = glm::scale(model, glm::vec3(size, 1.0f));
 	GLint uniformTranslate = glGetUniformLocation(this->program, "translate");
 	glUniformMatrix4fv(uniformTranslate, 1, GL_FALSE, glm::value_ptr(model));
+	//glUniform1f()
+	GLint uniformZoom = glGetUniformLocation(this->program, "zoom");
+	glUniform1f(uniformZoom, 0.5f);
+
+	GLint uniformPan = glGetUniformLocation(this->program, "pan");
+	glUniform2f(uniformPan, 0.4f, 0.0f);
 
 	glUseProgram(program);
 	glBindVertexArray(vao);

@@ -67,13 +67,19 @@ private:
 	const char* fragmentShaderSource = "#version 330 core\n"
 		"out vec4 FragColor;\n"
 		"in vec2 TexCoord;\n"
+		"uniform float zoom;\n"
+		"uniform vec2 pan;\n"
 		//"uniform sampler2D Texture;\n"
 		"void main()\n"
 		"{\n"
 		"vec2 uv = vec2(TexCoord.x * 3.0, TexCoord.y*3.0);\n"
 		"uv = uv - vec2(1.5, 1.5);\n"
+
+		"uv *= vec2(zoom);\n"
+		"uv += pan;"
+
 		"float x = 0.0;\n"
-    	"float y = 0.0;\n"
+		"float y = 0.0;\n"
     	"float cx = uv.x;\n"
     	"float cy = uv.y;\n"
     	"float it = 0.0;\n"
@@ -91,13 +97,12 @@ private:
 
     	"if (it > 501.0)\n"
     	"{\n"
-    	"col = vec3(1.0, 1.0, 1.0);\n"
+    	"col = vec3(0.0, 0.0, 0.0);\n"
     	"}\n"
     	"if (it < 500.0)\n"
     	"{\n"
-    	"col = vec3(0.0, 0.0, 1.0);\n"
+    	"col = vec3(0.0, 0.1*it, 0.1*it);\n"
     	"}\n"
-
 		"FragColor = vec4(col, 1.0);\n"
 		"}\0";
 

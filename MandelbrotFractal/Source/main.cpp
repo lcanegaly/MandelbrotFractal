@@ -7,8 +7,8 @@
 #include <iostream>
 #include "Gui.h"
 
-#define WIDTH 800
-#define HEIGHT 600
+#define WIDTH 1100
+#define HEIGHT 900
 
 static void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 static void key_callback(GLFWwindow*, int key, int scancode, int action, int mods);
