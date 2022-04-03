@@ -69,7 +69,7 @@ void Fractal::setBounds(glm::vec2 centerPoint, double zoom)
 void Fractal::display()
 {
 	//renderer->SetActiveTexture(1);
-	renderer->DrawFractal(texture.getTexture(), screenSize.x, screenSize.y);
+	renderer->DrawFractal(texture.getTexture(), screenSize.x, screenSize.y, centerPoint, zoom);
 	//renderer->Draw(texture.getTexture(), glm::vec2(0.0f, 0.0f), glm::vec2(0.25f, 0.25f));
 }
 

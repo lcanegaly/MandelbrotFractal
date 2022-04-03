@@ -9,7 +9,7 @@ class Renderer
 public:
 
 	Renderer(int width, int height);
-	void DrawFractal(unsigned char* tex, int windowWidth, int windowHeight);
+	void DrawFractal(unsigned char* tex, int windowWidth, int windowHeight, glm::vec2 center, double zoom);
 	void Draw(unsigned char* tex, int posX, int posY, int width, int height);
 	void SetActiveTexture(int texSlot);
 	void PrintStatus();
@@ -51,13 +51,13 @@ private:
 
 
 	const char* vertexShaderSource = "#version 330 core\n"
-    "layout (location = 0) in vec3 aPos;\n"
+	"layout (location = 0) in vec3 aPos;\n"
 	"layout (location = 1) in vec2 aTexCoord;\n"
 	"out vec2 TexCoord;\n"
 	"uniform mat4 translate;\n"
-    "void main()\n"
-    "{\n"
-    //"   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+	"void main()\n"
+	"{\n"
+	//"   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
 		"gl_Position = translate * vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
 		"TexCoord = aTexCoord;\n"
 		"}\0";
@@ -80,29 +80,28 @@ private:
 
 		"float x = 0.0;\n"
 		"float y = 0.0;\n"
-    	"float cx = uv.x;\n"
-    	"float cy = uv.y;\n"
-    	"float it = 0.0;\n"
+		"float cx = uv.x;\n"
+		"float cy = uv.y;\n"
+		"float it = 0.0;\n"
 
-    	"while (x*x + y*y <= 2.0*2.0 && it < 1000.0)\n"
-    	"{\n"
-        	"float xtemp = x*x - y*y + cx;\n"
-        	"y = 2.0*x*y + cy;\n"
-        	"x = xtemp;\n"
-        	"it = it + 1.0;\n"
-   	 	"}\n"
+		"while (x*x + y*y <= 2.0*2.0 && it < 4000.0)\n"
+		"{\n"
+			"float xtemp = x*x - y*y + cx;\n"
+			"y = 2.0*x*y + cy;\n"
+			"x = xtemp;\n"
+			"it = it + 1.0;\n"
+		"}\n"
 
 		"vec3 col = vec3(1.0*uv.x, 1.0*uv.y, 0.0);\n"
-    
 
-    	"if (it > 501.0)\n"
-    	"{\n"
-    	"col = vec3(0.0, 0.0, 0.0);\n"
-    	"}\n"
-    	"if (it < 500.0)\n"
-    	"{\n"
-    	"col = vec3(0.0, 0.1*it, 0.1*it);\n"
-    	"}\n"
+		"if (it > 2001.0)\n"
+		"{\n"
+		"col = vec3(0.0, 0.0, 0.0);\n"
+		"}\n"
+		"if (it < 2000.0)\n"
+		"{\n"
+		"col = vec3(0.0, 0.1*it, 0.1*it);\n"
+		"}\n"
 		"FragColor = vec4(col, 1.0);\n"
 		"}\0";
 

@@ -38,7 +38,7 @@ int main(void)
 	Fractal fractal(glm::vec2(WIDTH, HEIGHT), glm::vec2(-0.5f, 0.0f));
 	fractal.renderer = &renderer;
 	fractal_ptr = &fractal; 
-	fractal.calculate();
+	//fractal.calculate();
 
 	Gui gui;
 	gui_ptr = &gui;

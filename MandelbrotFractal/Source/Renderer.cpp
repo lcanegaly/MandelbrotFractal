@@ -61,7 +61,7 @@ Renderer::Renderer(int width, int height) : width { width },  height { height } 
 
 
 
-void Renderer::DrawFractal(unsigned char* tex, int windowWidth, int windowHeight)
+void Renderer::DrawFractal(unsigned char* tex, int windowWidth, int windowHeight, glm::vec2 center = glm::vec2(0.0f,0.0f), double zoom = 1.0)
 {
 
 	glm::mat4 model = glm::mat4(1.0f);
@@ -71,10 +71,10 @@ void Renderer::DrawFractal(unsigned char* tex, int windowWidth, int windowHeight
 	glUniformMatrix4fv(uniformTranslate, 1, GL_FALSE, glm::value_ptr(model));
 	//glUniform1f()
 	GLint uniformZoom = glGetUniformLocation(this->program, "zoom");
-	glUniform1f(uniformZoom, 0.5f);
+	glUniform1f(uniformZoom, (float)zoom);
 
 	GLint uniformPan = glGetUniformLocation(this->program, "pan");
-	glUniform2f(uniformPan, 0.4f, 0.0f);
+	glUniform2f(uniformPan, center.x, center.y);
 
 	glUseProgram(program);
 	glBindVertexArray(vao);
