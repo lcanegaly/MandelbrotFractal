@@ -6,14 +6,15 @@
 Fractal::Fractal(glm::vec2 screenSize, glm::vec2 centerPoint) : screenSize{ screenSize }, centerPoint{ centerPoint }
 {
 	this->zoom = 2.0;
-	texture.create(screenSize);
+	texture.createTexture(screenSize);
+
 }
 
 void Fractal::calculate()
 {
 	if (this->calculated == false) {
 		auto t1 = std::chrono::high_resolution_clock::now();
-		texture.clearData();
+		texture.clearTexture();
 		this->calculated = true;
 
 		//Complex point;
@@ -24,8 +25,8 @@ void Fractal::calculate()
 			for (int x = 0; x < this->screenSize.x; x++)
 			{
 				this->translateCoord(&point, x, y);
-				std::complex<double> value(0.0, 0.0);
-				std::complex<double> pt(std::real(point), std::imag(point));
+				std::complex<long double> value(0.0, 0.0);
+				std::complex<long double> pt(std::real(point), std::imag(point));
 				int iteration = 0;
 
 				this->iterationLimit = 1 / this->zoom * 40;
@@ -37,7 +38,7 @@ void Fractal::calculate()
 					iteration++;
 				}
 
-				texture.setData(glm::vec3((2 * iteration), iteration, (255 - 2 * iteration)));
+				texture.setPixelColor(glm::vec3((2 * iteration), iteration, (255 - 2 * iteration)));
 
 			}
 		}
@@ -56,18 +57,20 @@ void Fractal::setBounds(glm::vec2 centerPoint, double zoom)
 	this->centerPoint += centerPoint * glm::vec2(this->zoom, this->zoom);
 	if (zoom > 0)
 	{
-		this->zoom = this->zoom / 2;
+		this->zoom = this->zoom / 1.1;
 	}
 	if (zoom < 0)
 	{
-		this->zoom = this->zoom * 2;
+		this->zoom = this->zoom * 1.1;
 	}
 }
 
 
 void Fractal::display()
 {
-	renderer.Draw(texture.getData(), screenSize.x, screenSize.y);
+	//renderer->SetActiveTexture(1);
+	renderer->DrawFractal(texture.getTexture(), screenSize.x, screenSize.y, centerPoint, zoom);
+	//renderer->Draw(texture.getTexture(), glm::vec2(0.0f, 0.0f), glm::vec2(0.25f, 0.25f));
 }
 
 void Fractal::translateCoord(std::complex<double>* comp, int x, int y)

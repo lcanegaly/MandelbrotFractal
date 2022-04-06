@@ -5,33 +5,35 @@ Texture::Texture()
 
 }
 
-void Texture::create(glm::vec2 size)
+void Texture::createTexture(glm::vec2 size)
 {
-	this->dataSize = (int)size.x * (int)size.y;
-	dataSize = dataSize * 3;
-	this->data = new unsigned char[dataSize];
+	this->textureSize = (int)size.x * (int)size.y;
+	textureSize = textureSize * 3;
+	this->pixel = new unsigned char[textureSize];
 }
 
-unsigned char* Texture::getData()
+unsigned char* Texture::getTexture()
 {
-	return data;
+	return pixel;
 }
 
-void Texture::setData(glm::vec3 color)
+void Texture::setPixelColor(glm::vec3 color)
 {
-	data[counter] = color.x;
-	++counter;
-	data[counter] = color.y;
-	++counter;
-	data[counter] = color.z;
-	++counter;
+	//set red value
+	pixel[pixelPosition] = color.x;
+	++pixelPosition;
+	//set green value
+	pixel[pixelPosition] = color.y;
+	++pixelPosition;
+	//set blue value
+	pixel[pixelPosition] = color.z;
+	++pixelPosition;
 
 }
 
-void Texture::clearData()
+void Texture::clearTexture()
 {
-	delete[] data;
-	this->data = new unsigned char[dataSize];
-	this->counter = 0;
-	//
+	delete[] pixel;
+	this->pixel = new unsigned char[textureSize];
+	this->pixelPosition = 0;
 }
