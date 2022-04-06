@@ -84,7 +84,9 @@ private:
 		"float cy = uv.y;\n"
 		"float it = 0.0;\n"
 
-		"while (x*x + y*y <= 2.0*2.0 && it < 4000.0)\n"
+		//"const vec3 colorArray[4]=vec3[4](vec3(1.0,0.0,0.0), vec3(0.0,1.0,0.0), vec3(0.0,0.0,1.0), vec3(0.0,0.0,0.0) );\n"
+
+		"while (x*x + y*y <= 2.0*2.0 && it < 8000.0)\n"
 		"{\n"
 			"float xtemp = x*x - y*y + cx;\n"
 			"y = 2.0*x*y + cy;\n"
@@ -92,16 +94,19 @@ private:
 			"it = it + 1.0;\n"
 		"}\n"
 
+		//"vec3 col = colorArray[int(0.001*it)];\n"
+
 		"vec3 col = vec3(1.0*uv.x, 1.0*uv.y, 0.0);\n"
 
-		"if (it > 2001.0)\n"
+		"if (it > 4001.0)\n"
 		"{\n"
 		"col = vec3(0.0, 0.0, 0.0);\n"
 		"}\n"
-		"if (it < 2000.0)\n"
+		"if (it < 4000.0)\n"
 		"{\n"
-		"col = vec3(0.0, 0.1*it, 0.1*it);\n"
+		"col = vec3(0.0, 0.25+0.01*it, 0.1*it);\n"
 		"}\n"
+
 		"FragColor = vec4(col, 1.0);\n"
 		"}\0";
 

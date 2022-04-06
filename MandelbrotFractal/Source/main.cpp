@@ -38,14 +38,10 @@ int main(void)
 	Fractal fractal(glm::vec2(WIDTH, HEIGHT), glm::vec2(-0.5f, 0.0f));
 	fractal.renderer = &renderer;
 	fractal_ptr = &fractal; 
-	//fractal.calculate();
 
 	Gui gui;
 	gui_ptr = &gui;
 	gui.guiRenderer = &renderer;
-
-	//std::cout << renderer.ConvertNormToPixel(-0.25f, 0.5f).x << std::endl;
-	//std::cout << renderer.ConvertPixelToNorm(300, 600).x << std::endl;
 
 	while (!glfwWindowShouldClose(window))
 	{
