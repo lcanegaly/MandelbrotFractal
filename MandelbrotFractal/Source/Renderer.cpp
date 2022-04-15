@@ -61,7 +61,7 @@ Renderer::Renderer(int width, int height) : width { width },  height { height } 
 
 
 
-void Renderer::DrawFractal(unsigned char* tex, int windowWidth, int windowHeight, glm::vec2 center = glm::vec2(0.0f,0.0f), double zoom = 1.0)
+void Renderer::DrawFractal(int windowWidth, int windowHeight, glm::vec2 center = glm::vec2(0.0f,0.0f), double zoom = 1.0)
 {
 
 	glm::mat4 model = glm::mat4(1.0f);
@@ -79,9 +79,9 @@ void Renderer::DrawFractal(unsigned char* tex, int windowWidth, int windowHeight
 	glUseProgram(program);
 	glBindVertexArray(vao);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBindTexture(GL_TEXTURE_2D, this->texture);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, windowWidth, windowHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, tex);
-	glGenerateMipmap(GL_TEXTURE_2D);
+	//glBindTexture(GL_TEXTURE_2D, this->texture);
+	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, windowWidth, windowHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, tex);
+	//glGenerateMipmap(GL_TEXTURE_2D);
 
 
 	glDrawArrays(GL_TRIANGLES, 0, 6);

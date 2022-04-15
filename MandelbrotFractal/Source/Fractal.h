@@ -9,7 +9,6 @@ class Fractal
 public:
 
 	Fractal(glm::vec2 screenSize, glm::vec2 centerPoint);
-	void calculate();
 
 	//sets the coordinate plane bounds
 	void setBounds(glm::vec2 centerPoint, double zoom);
@@ -26,6 +25,6 @@ private:
 	double iterationLimit = 500;
 	glm::vec2 screenSize;
 	
-	Texture texture;
+	//Texture texture;
 	bool calculated = false;
 };

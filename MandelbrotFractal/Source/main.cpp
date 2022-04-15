@@ -39,6 +39,7 @@ int main(void)
 	fractal.renderer = &renderer;
 	fractal_ptr = &fractal; 
 
+
 	Gui gui;
 	gui_ptr = &gui;
 	gui.guiRenderer = &renderer;
@@ -48,7 +49,6 @@ int main(void)
 		glClearColor(0.55f, 0.3f, 1.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 	
-	//	fractal.calculate();
 		fractal.display();
 		
 

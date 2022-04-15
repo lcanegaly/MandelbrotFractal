@@ -26,7 +26,6 @@ private:
 	bool drawn = false;
 	mouseInput mouse;
 	Texture tex;
-	Texture tex2;
-	Texture tex3;
+
 };
 

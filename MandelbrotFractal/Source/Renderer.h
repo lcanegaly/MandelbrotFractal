@@ -9,7 +9,7 @@ class Renderer
 public:
 
 	Renderer(int width, int height);
-	void DrawFractal(unsigned char* tex, int windowWidth, int windowHeight, glm::vec2 center, double zoom);
+	void DrawFractal(int windowWidth, int windowHeight, glm::vec2 center, double zoom);
 	void Draw(unsigned char* tex, int posX, int posY, int width, int height);
 	void SetActiveTexture(int texSlot);
 	void PrintStatus();
