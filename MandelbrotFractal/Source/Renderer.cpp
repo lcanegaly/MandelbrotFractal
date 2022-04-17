@@ -37,7 +37,22 @@ Renderer::Renderer(int width, int height) : width { width },  height { height } 
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
 
+	//Create second program to load menu frag shader
+	this->menuProgram = glCreateProgram();
+	vertexShader = glCreateShader(GL_VERTEX_SHADER);
+	glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
+	glCompileShader(vertexShader);
 
+	fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+	glShaderSource(fragmentShader, 1, &fragmentShaderSourceMenu, NULL);
+	glCompileShader(fragmentShader);
+
+	glAttachShader(menuProgram, vertexShader);
+	glAttachShader(menuProgram, fragmentShader);
+	glLinkProgram(menuProgram);
+
+	glDeleteShader(vertexShader);
+	glDeleteShader(fragmentShader);
 
 	//texture
 	glGenTextures(2, &texture);
@@ -63,13 +78,12 @@ Renderer::Renderer(int width, int height) : width { width },  height { height } 
 
 void Renderer::DrawFractal(int windowWidth, int windowHeight, glm::vec2 center = glm::vec2(0.0f,0.0f), double zoom = 1.0)
 {
-
+	glUseProgram(program);
 	glm::mat4 model = glm::mat4(1.0f);
-	//model = glm::translate(model, glm::vec3(pos, 0.0f));
-	//model = glm::scale(model, glm::vec3(size, 1.0f));
+
 	GLint uniformTranslate = glGetUniformLocation(this->program, "translate");
 	glUniformMatrix4fv(uniformTranslate, 1, GL_FALSE, glm::value_ptr(model));
-	//glUniform1f()
+
 	GLint uniformZoom = glGetUniformLocation(this->program, "zoom");
 	glUniform1f(uniformZoom, (float)zoom);
 
@@ -79,10 +93,6 @@ void Renderer::DrawFractal(int windowWidth, int windowHeight, glm::vec2 center =
 	glUseProgram(program);
 	glBindVertexArray(vao);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	//glBindTexture(GL_TEXTURE_2D, this->texture);
-	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, windowWidth, windowHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, tex);
-	//glGenerateMipmap(GL_TEXTURE_2D);
-
 
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 	glBindVertexArray(0);
@@ -91,6 +101,7 @@ void Renderer::DrawFractal(int windowWidth, int windowHeight, glm::vec2 center =
 
 void Renderer::Draw(unsigned char* tex, int posX, int posY, int width, int height)
 {
+	glUseProgram(menuProgram);
 
 	glm::vec2 position = ConvertPixelToNorm(posX, posY);
 	glm::vec2 size;
@@ -103,15 +114,12 @@ void Renderer::Draw(unsigned char* tex, int posX, int posY, int width, int heigh
 	GLint uniformTranslate = glGetUniformLocation(this->program, "translate");
 	glUniformMatrix4fv(uniformTranslate, 1, GL_FALSE, glm::value_ptr(model));
 
-	glUseProgram(program);
 	glBindVertexArray(vao);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glBindTexture(GL_TEXTURE_2D, this->texture);
-	
 
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, tex);
 	glGenerateMipmap(GL_TEXTURE_2D);
-
 
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 	glBindVertexArray(0);

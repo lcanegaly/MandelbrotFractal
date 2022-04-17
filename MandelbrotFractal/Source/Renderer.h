@@ -23,6 +23,7 @@ private:
 	GLuint vbo;
 	unsigned int vao;
 	GLuint program;
+	GLuint menuProgram;
 	GLuint texture;
 
 	float vertices[30] = {
@@ -111,8 +112,8 @@ private:
 		"}\0";
 
 
-/*
-	const char* fragmentShaderSource = "#version 330 core\n"
+
+	const char* fragmentShaderSourceMenu = "#version 330 core\n"
 		"out vec4 FragColor;\n"
 		"in vec2 TexCoord;\n"
 		"uniform sampler2D Texture;\n"
@@ -120,5 +121,5 @@ private:
 		"{\n"
 		"	FragColor = texture(Texture, TexCoord);\n"
 		"}\0";
-*/
+
 };
