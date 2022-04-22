@@ -23,15 +23,15 @@ bool Gui::Button(int width, int height, int posX, int posY, int texure)
 	if (!drawn)
 	{
 		drawn = true;
-		tex.createTexture(glm::vec2(width, height));
+		tex[0].createTexture(glm::vec2(width, height));
 		for (int x = 0; x < (width * height); x++)
 		{
-			tex.setPixelColor(glm::vec3(255, 0, 0));
+			tex[0].setPixelColor(glm::vec3(255, 0, 0));
 		}
 
 	}
 
-	guiRenderer->Draw(tex.getTexture(), posX, posY, width, height);
+	guiRenderer->Draw(tex[0].getTexture(), posX, posY, width, height);
 
 
 	if (this->mouse.leftClick) {
@@ -55,7 +55,7 @@ void Gui::resetGui()
 {
 	drawn = false;
 	mouse.Clear();
-	tex.clearTexture();
+	tex[0].clearTexture();
 
 }
 

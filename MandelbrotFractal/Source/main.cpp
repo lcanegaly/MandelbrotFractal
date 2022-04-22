@@ -53,40 +53,40 @@ int main(void)
 		
 
 		//up button
-		if (gui.Button(40, 40, 80, 80, 1)) 
+		if (gui.Button(40, 40, 80, 80, 0)) 
 		{
 			std::cout << "mouse click" << std::endl;
 			fractal.setBounds(glm::vec2(0.0, 0.1), 0); //up
 		}
 
 		//down button
-		if (gui.Button(40, 40, 80, 180, 1))
+		if (gui.Button(40, 40, 80, 180, 0))
 		{
 			std::cout << "mouse click" << std::endl;
 			fractal.setBounds(glm::vec2(0.0, -0.1), 0); //down
 		}
 
 		//left button
-		if (gui.Button(40, 40, 40, 130, 1))
+		if (gui.Button(40, 40, 40, 130, 0))
 		{
 			std::cout << "mouse click" << std::endl;
 			fractal.setBounds(glm::vec2(-0.1, 0.0), 0);//left
 		}
 		//right button
-		if (gui.Button(40, 40, 120, 130, 1))
+		if (gui.Button(40, 40, 120, 130, 0))
 		{
 			std::cout << "mouse click" << std::endl;
 			fractal.setBounds(glm::vec2(0.1, 0.0), 0); //right
 		}
 		//zoom out button
-		if (gui.Button(40, 40, 160, 80, 2))
+		if (gui.Button(40, 40, 160, 80, 0))
 		{
 			std::cout << "mouse click" << std::endl;
 			fractal.setBounds(glm::vec2(0.0, 0.0), 0.1);//Zoom in
 			
 		}
 		//zoom in button
-		if (gui.Button(40, 40, 160, 180, 2))
+		if (gui.Button(40, 40, 160, 180, 0))
 		{
 			std::cout << "mouse click" << std::endl;
 			fractal.setBounds(glm::vec2(0.0, 0.0), -0.1);//Zoom in
