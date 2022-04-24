@@ -32,6 +32,7 @@ void Fractal::display()
 	renderer->DrawFractal(screenSize.x, screenSize.y, centerPoint, zoom);
 }
 
+/*
 void Fractal::translateCoord(std::complex<double>* comp, int x, int y)
 {
 	std::complex<double> point(*comp);
@@ -45,3 +46,4 @@ void Fractal::translateCoord(std::complex<double>* comp, int x, int y)
 	comp->imag(start + (y * multipliery));
 
 }
+*/

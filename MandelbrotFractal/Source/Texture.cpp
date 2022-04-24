@@ -33,48 +33,77 @@ void Texture::setPixelColor(glm::vec3 color)
 }
 
 void Texture::line(int x1, int y1, int x2, int y2){
-
+	
 	float slope = 0.0f;
+
 	if (x1!=x2){
 		slope = (float(y1-y2))/(float(x1-x2));
 	}else{
+		int ity = (y1 > y2) ? y2 : y1;
 		for (int y = 0; y < abs(y1-y2); ++y){
 			int x = x1;
-			int position = 3*(x+((y1+y)*int(this->texSize.x)));
+			int position = 3*(x+((ity+y)*int(this->texSize.x)));
 			pixel[position-1]= 100.0f;
 			pixel[position]= 100.0f;
 			pixel[position+1]= 100.0f;
 		}
 		return;
 	}
-		
 	
-	float b = y1-(slope*x1);
-
-	for (int x = 0; x < abs(x1-x2); ++x){
-		int y = slope*(x1+x)+b;
-		int position = 3*((x1+x)+(y*int(this->texSize.x)));
-		pixel[position-1]= 100.0f;
-		pixel[position]= 100.0f;
-		pixel[position+1]= 100.0f;
+	if (y2 == y1){
+		int itx = (x1 > x2) ? x2 : x1;
+		for (int x = 0; x < abs(x1 - x2); ++x) {
+			int y = y1;
+			int position = 3 * (itx+x + (y * int(this->texSize.x)));
+			pixel[position - 1] = 100.0f;
+			pixel[position] = 100.0f;
+			pixel[position + 1] = 100.0f;
+		}
+		return;
 	}
-
-	for (int y = 0; y < abs(y1-y2); ++y){
 		
-		int x = ((y1+y)-b)/slope;
+	int itx = 0, ity = 0;
 
-		int position = 3*(x+((y1+y)*int(this->texSize.x)));
+	if (slope > 0) {
+		if (x1 > x2)
+			itx = x2, ity = y2;
+		else
+			itx = x1, ity = y1;
+	}
+	else if(slope < 0) {
+		if (x1 > x2)
+			itx = x2, ity = y1;
+		else
+			itx = x1, ity = y2;
+	}
+
+	float b = y1 - (slope * x1);
+	
+	for (int x = 0; x < abs(x1-x2); ++x){
+		int y = slope*(itx+x)+b;
+		int position = 3*((itx+x)+(y*int(this->texSize.x)));
 		pixel[position-1]= 100.0f;
 		pixel[position]= 100.0f;
 		pixel[position+1]= 100.0f;
 	}
-
+	
+	for (int y = 0; y < abs(y1-y2); ++y){
+		int x = ((ity+y)-b)/slope;
+		int position = 3*(x+((ity+y)*int(this->texSize.x)));
+		pixel[position-1]= 100.0f;
+		pixel[position]= 100.0f;
+		pixel[position+1]= 100.0f;
+	}
 }
 
 
 void Texture::arrow(int x, int y, int sizeX, int sizeY){
 
-	line(80, 10, 100, 100);
+
+	line(x - sizeX/2, y-sizeY, x, y);
+	line(x + sizeX/2, y - sizeY, x, y);
+	line(x + sizeX / 2, y - sizeY, x - sizeX / 2, y - sizeY);
+
 
 }
 

@@ -28,8 +28,8 @@ bool Gui::Button(int width, int height, int posX, int posY, int texture)
 		{
 			tex[texture].setPixelColor(glm::vec3(0, 255, 0));
 		}
-		tex[texture].arrow(200, 300, 50, 100);
-		//tex[texture].line(0,0, 300, 300);
+		tex[texture].arrow(200, 300, 200, 200);
+		
 	}
 
 	guiRenderer->Draw(tex[texture].getTexture(), posX, posY, width, height);

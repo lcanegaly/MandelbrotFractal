@@ -51,7 +51,7 @@ int main(void)
 	
 		fractal.display();
 		
-		if (gui.Button(440, 440, 280, 280, 0)) 
+		if (gui.Button(400, 400, 280, 280, 0)) 
 		{
 			fractal.setBounds(glm::vec2(0.0, 0.1), 0); //up
 		}

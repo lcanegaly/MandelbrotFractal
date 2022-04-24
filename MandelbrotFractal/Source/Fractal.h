@@ -16,7 +16,7 @@ public:
 	void display();
 
 	//takes pixel location and converts to point within drawing bounds
-	void translateCoord(std::complex<double>* comp, int x, int y);
+	//void translateCoord(std::complex<double>* comp, int x, int y);
 
 	Renderer* renderer;
 private:
