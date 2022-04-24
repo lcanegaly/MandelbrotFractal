@@ -51,9 +51,13 @@ int main(void)
 	
 		fractal.display();
 		
-
+		if (gui.Button(440, 440, 280, 280, 0)) 
+		{
+			fractal.setBounds(glm::vec2(0.0, 0.1), 0); //up
+		}
+/*
 		//up button
-		if (gui.Button(40, 40, 80, 80, 0)) 
+		if (gui.Button(440, 440, 80, 80, 0)) 
 		{
 			std::cout << "mouse click" << std::endl;
 			fractal.setBounds(glm::vec2(0.0, 0.1), 0); //up
@@ -92,7 +96,7 @@ int main(void)
 			fractal.setBounds(glm::vec2(0.0, 0.0), -0.1);//Zoom in
 			
 		}
-
+*/
 		gui.resetGui();
 
 

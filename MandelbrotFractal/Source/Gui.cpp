@@ -18,20 +18,21 @@ void Gui::addMouseInputEvent(int button, int action, double xpos, double ypos)
 
 }
 
-bool Gui::Button(int width, int height, int posX, int posY, int texure)
+bool Gui::Button(int width, int height, int posX, int posY, int texture)
 {
 	if (!drawn)
 	{
 		drawn = true;
-		tex[0].createTexture(glm::vec2(width, height));
+		tex[texture].createTexture(glm::vec2(width, height));
 		for (int x = 0; x < (width * height); x++)
 		{
-			tex[0].setPixelColor(glm::vec3(255, 0, 0));
+			tex[texture].setPixelColor(glm::vec3(0, 255, 0));
 		}
-
+		tex[texture].arrow(200, 300, 50, 100);
+		//tex[texture].line(0,0, 300, 300);
 	}
 
-	guiRenderer->Draw(tex[0].getTexture(), posX, posY, width, height);
+	guiRenderer->Draw(tex[texture].getTexture(), posX, posY, width, height);
 
 
 	if (this->mouse.leftClick) {
