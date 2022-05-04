@@ -28,7 +28,7 @@ bool Gui::Button(int width, int height, int posX, int posY, int texture)
 		{
 			tex[texture].setPixelColor(glm::vec3(0, 255, 0));
 		}
-		tex[texture].arrow(200, 300, 200, 200);
+		tex[texture].arrow(width/2, height-(height/4), width / 2, height / 2);
 		
 	}
 

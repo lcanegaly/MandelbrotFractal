@@ -32,6 +32,25 @@ void Texture::setPixelColor(glm::vec3 color)
 
 }
 
+void Texture::setPixelColor(glm::vec2 pos, glm::vec3 color)
+{
+	int position = 3 * (pos.x + pos.y * int(this->texSize.x));
+	pixel[position] = color.x;
+	pixel[position + 1] = color.y;
+	pixel[position + 2] = color.z;
+}
+
+glm::vec3 Texture::getPixelColor(glm::vec2 pos)
+{
+	glm::vec3 color{0.0f};
+	int position = 3 * (pos.x + pos.y * int(this->texSize.x));
+	color.x == pixel[position];
+	color.y == pixel[position + 1];
+	color.z == pixel[position + 2];
+
+	return color;
+}
+
 void Texture::line(int x1, int y1, int x2, int y2){
 	
 	float slope = 0.0f;
@@ -104,7 +123,15 @@ void Texture::arrow(int x, int y, int sizeX, int sizeY){
 	line(x + sizeX/2, y - sizeY, x, y);
 	line(x + sizeX / 2, y - sizeY, x - sizeX / 2, y - sizeY);
 
+	floodFill(glm::vec2(x, y - y * 0.5), glm::vec3(0,0,255), glm::vec3(getPixelColor(glm::vec2(x,y-1))));
 
+}
+
+void Texture::floodFill(glm::vec2 pos, glm::vec3 color, glm::vec3 match)
+{
+	
+	//while (getPixelColor(pos));
+	
 }
 
 void Texture::clearTexture()
