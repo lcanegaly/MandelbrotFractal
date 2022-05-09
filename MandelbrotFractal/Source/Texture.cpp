@@ -1,4 +1,5 @@
 #include "Texture.h"
+#include <iostream>
 
 Texture::Texture()
 {
@@ -42,11 +43,16 @@ void Texture::setPixelColor(glm::vec2 pos, glm::vec3 color)
 
 glm::vec3 Texture::getPixelColor(glm::vec2 pos)
 {
-	glm::vec3 color{0.0f};
+	glm::vec3 color{0.0f, 0.0f, 0.0f};
 	int position = 3 * (pos.x + pos.y * int(this->texSize.x));
-	color.x == pixel[position];
-	color.y == pixel[position + 1];
-	color.z == pixel[position + 2];
+	
+	int x = pixel[position];
+	int y = pixel[position + 1];
+	int z =	pixel[position + 2];
+
+	color = glm::vec3(x, y, z);
+
+
 
 	return color;
 }
@@ -123,15 +129,75 @@ void Texture::arrow(int x, int y, int sizeX, int sizeY){
 	line(x + sizeX/2, y - sizeY, x, y);
 	line(x + sizeX / 2, y - sizeY, x - sizeX / 2, y - sizeY);
 
-	floodFill(glm::vec2(x, y - y * 0.5), glm::vec3(0,0,255), glm::vec3(getPixelColor(glm::vec2(x,y-1))));
+	floodFill(glm::vec2(x, y - y * 0.5), glm::vec3(10, 10, 10), glm::vec3(getPixelColor(glm::vec2(x, y - y * 0.5))));
 
 }
 
+//needs some rethinking..
 void Texture::floodFill(glm::vec2 pos, glm::vec3 color, glm::vec3 match)
 {
+	//fill lines below starting pixel
+	int posY = pos.y;
+	glm::vec3 pcolor = getPixelColor(glm::vec2(pos.x, posY));
+	while (pcolor == match) {
+
+		
+		int posX = pos.x - 1;
+		glm::vec3 xcolor = getPixelColor(glm::vec2(posX, posY));
+		while (xcolor == match) {
+			if (posX > 0) {
+				setPixelColor(glm::vec2(posX, posY), color);
+				posX -= 1;
+				xcolor = getPixelColor(glm::vec2(posX, posY));
+			}
+		}
+		
+		posX = pos.x + 1;
+		xcolor = getPixelColor(glm::vec2(posX, posY));
+		while (xcolor == match) {
+			if (posX < texSize.x) {
+				setPixelColor(glm::vec2(posX, posY), color);
+				posX += 1;
+				xcolor = getPixelColor(glm::vec2(posX, posY));
+			}
+		}
+
+		if (posY > 0) {
+			setPixelColor(glm::vec2(pos.x, posY), color);
+			posY -= 1;
+			pcolor = getPixelColor(glm::vec2(pos.x, posY));
+		}
+
+	}
 	
-	//while (getPixelColor(pos));
-	
+	//fill lines above starting pixel
+	posY = pos.y;
+	pcolor = getPixelColor(glm::vec2(pos.x, posY + 1 ));
+	while (pcolor == match) {
+		int posX = pos.x + 1;
+		glm::vec3 xcolor = getPixelColor(glm::vec2(posX, posY));
+		while (xcolor == match) {
+			if (posX < texSize.x) {
+				setPixelColor(glm::vec2(posX, posY), color);
+				posX += 1;
+				xcolor = getPixelColor(glm::vec2(posX, posY));
+			}
+		}
+		posX = pos.x - 1;
+		xcolor = getPixelColor(glm::vec2(posX, posY));
+		while (xcolor == match) {
+			if (posX < texSize.x) {
+				setPixelColor(glm::vec2(posX, posY), color);
+				posX -= 1;
+				xcolor = getPixelColor(glm::vec2(posX, posY));
+			}
+		}
+		if (posY < texSize.y) {
+			setPixelColor(glm::vec2(pos.x, posY), color);
+			posY += 1;
+			pcolor = getPixelColor(glm::vec2(pos.x, posY));
+		}
+	}
 }
 
 void Texture::clearTexture()
