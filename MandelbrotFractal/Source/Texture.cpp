@@ -4,6 +4,7 @@
 Texture::Texture()
 {
 
+
 }
 
 void Texture::createTexture(glm::vec2 size)

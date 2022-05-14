@@ -50,60 +50,41 @@ int main(void)
 		glClear(GL_COLOR_BUFFER_BIT);
 	
 		fractal.display();
-		
-		if (gui.Button(200, 200, 280, 280, 0)) 
-		{
-			fractal.setBounds(glm::vec2(0.0, 0.1), 0); //up
-		}
-/*
-		//up button
-		if (gui.Button(440, 440, 80, 80, 0)) 
-		{
-			std::cout << "mouse click" << std::endl;
-			fractal.setBounds(glm::vec2(0.0, 0.1), 0); //up
-		}
 
-		//down button
-		if (gui.Button(40, 40, 80, 180, 0))
+		//up button
+		if (gui.Button(40, 40, 80, 80, 0)) 
 		{
-			std::cout << "mouse click" << std::endl;
+			fractal.setBounds(glm::vec2(0.0, 0.1), 0); //up
+		}
+		//down button
+		if (gui.Button(40, 40, 80, 180, 1))
+		{
 			fractal.setBounds(glm::vec2(0.0, -0.1), 0); //down
 		}
-
 		//left button
 		if (gui.Button(40, 40, 40, 130, 0))
 		{
-			std::cout << "mouse click" << std::endl;
 			fractal.setBounds(glm::vec2(-0.1, 0.0), 0);//left
 		}
 		//right button
 		if (gui.Button(40, 40, 120, 130, 0))
 		{
-			std::cout << "mouse click" << std::endl;
 			fractal.setBounds(glm::vec2(0.1, 0.0), 0); //right
 		}
 		//zoom out button
 		if (gui.Button(40, 40, 160, 80, 0))
 		{
-			std::cout << "mouse click" << std::endl;
 			fractal.setBounds(glm::vec2(0.0, 0.0), 0.1);//Zoom in
-			
 		}
 		//zoom in button
 		if (gui.Button(40, 40, 160, 180, 0))
 		{
-			std::cout << "mouse click" << std::endl;
 			fractal.setBounds(glm::vec2(0.0, 0.0), -0.1);//Zoom in
-			
 		}
-*/
 		gui.resetGui();
 
-
 		glfwSwapBuffers(window);
-		
 		glfwPollEvents();
-		
 	}
 
 	glfwTerminate();
@@ -141,7 +122,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
 	if (key == GLFW_KEY_SPACE && action == GLFW_PRESS) 
 		fractal_ptr->setBounds(glm::vec2(0.0, 0.0), -0.1);//Zoom out
-	
+
 	if (key == GLFW_KEY_LEFT_CONTROL && action == GLFW_PRESS) 
 		fractal_ptr->setBounds(glm::vec2(0.0, 0.0), 0.1);//Zoom in
 

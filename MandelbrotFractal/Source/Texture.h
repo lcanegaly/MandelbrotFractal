@@ -6,7 +6,6 @@
 class Texture 
 {
 public:
-
 	Texture();
 	void createTexture(glm::vec2 size);
 	unsigned char* getTexture();
