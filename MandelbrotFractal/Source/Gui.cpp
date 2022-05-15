@@ -4,15 +4,29 @@
 Gui::Gui(Renderer& rend): guiRenderer { rend }
 {
 	this->resetGui();
-	for (int i = 0; i < 3; ++i) {
+	for (int i = 0; i < this->numTextures; ++i) {
 		tex[i].createTexture(glm::vec2(defaultWidth, defaultHeight));
 		for (int x = 0; x < (defaultWidth * defaultHeight); x++)
 		{
 			tex[i].setPixelColor(glm::vec3(0, 255, 0));
 		}
 	}
-	tex[0].arrow(defaultWidth / 2, defaultHeight - (defaultHeight / 4), defaultWidth / 2, defaultHeight / 2);
-	tex[1].arrow(defaultWidth / 2, defaultHeight - 2*(defaultHeight / 4), defaultWidth / 2, defaultHeight / 2);
+	//create button textures to be used with Gui object
+	//up arrow
+	tex[Icons::up_arrow].arrow(defaultWidth / 2, defaultHeight - (defaultHeight / 4), defaultWidth / 2, defaultHeight / 2);
+	//down arrow
+	tex[Icons::down_arrow].arrow(defaultWidth / 2, defaultHeight - (defaultHeight / 4), defaultWidth / 2, defaultHeight / 2);
+	tex[Icons::down_arrow].setRotation(180.0f);
+	//left arrow
+	tex[Icons::left_arrow].arrow(defaultWidth / 2, defaultHeight - (defaultHeight / 4), defaultWidth / 2, defaultHeight / 2);
+	tex[Icons::left_arrow].setRotation(90.0f);
+	//right arrow
+	tex[Icons::right_arrow].arrow(defaultWidth / 2, defaultHeight - (defaultHeight / 4), defaultWidth / 2, defaultHeight / 2);
+	tex[Icons::right_arrow].setRotation(-90.0f);
+	//minus
+	tex[Icons::minus].minus(defaultWidth / 2, defaultHeight - (defaultHeight / 2), defaultWidth / 2, defaultHeight / 2);
+	//plus
+	tex[Icons::plus].plus(defaultWidth / 2, defaultHeight - (defaultHeight / 2), defaultWidth / 2, defaultHeight / 2);
 }
 
 Gui::~Gui()
@@ -29,9 +43,9 @@ void Gui::addMouseInputEvent(int button, int action, double xpos, double ypos)
 
 }
 
-bool Gui::Button(int width, int height, int posX, int posY, int texture)
+bool Gui::Button(int width, int height, int posX, int posY, int texture, float rotation)
 {
-	guiRenderer.Draw(tex[texture].getTexture(), posX, posY, width, height);
+	guiRenderer.Draw(tex[texture].getTexture(), posX, posY, width, height, tex[texture].getRotation());
 
 	if (this->mouse.leftClick) {
 		int x = std::abs(mouse.mouseX - posX);

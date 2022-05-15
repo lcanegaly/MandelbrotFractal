@@ -17,7 +17,7 @@ public:
 
 	void Init(int width, int height);
 	void DrawFractal(int windowWidth, int windowHeight, glm::vec2 center, double zoom);
-	void Draw(unsigned char* tex, int posX, int posY, int width, int height);
+	void Draw(unsigned char* tex, int posX, int posY, int width, int height, float rotation = 0);
 	void SetActiveTexture(int texSlot);
 	void PrintStatus();
 	

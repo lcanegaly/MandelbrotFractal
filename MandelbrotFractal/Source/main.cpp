@@ -51,34 +51,34 @@ int main(void)
 		fractal.display();
 
 		//up button
-		if (gui.Button(40, 40, 80, 80, 0)) 
+		if (gui.Button(40, 40, 80, 80, gui.up_arrow)) 
 		{
-			fractal.setBounds(glm::vec2(0.0, 0.1), 0); //up
+			fractal.setBounds(glm::vec2(0.0, 0.1), 0);
 		}
 		//down button
-		if (gui.Button(40, 40, 80, 180, 1))
+		if (gui.Button(40, 40, 80, 180, gui.down_arrow))
 		{
-			fractal.setBounds(glm::vec2(0.0, -0.1), 0); //down
+			fractal.setBounds(glm::vec2(0.0, -0.1), 0);
 		}
 		//left button
-		if (gui.Button(40, 40, 40, 130, 0))
+		if (gui.Button(40, 40, 40, 130, gui.left_arrow))
 		{
-			fractal.setBounds(glm::vec2(-0.1, 0.0), 0);//left
+			fractal.setBounds(glm::vec2(-0.1, 0.0), 0);
 		}
 		//right button
-		if (gui.Button(40, 40, 120, 130, 0))
+		if (gui.Button(40, 40, 120, 130, gui.right_arrow))
 		{
-			fractal.setBounds(glm::vec2(0.1, 0.0), 0); //right
-		}
-		//zoom out button
-		if (gui.Button(40, 40, 160, 80, 0))
-		{
-			fractal.setBounds(glm::vec2(0.0, 0.0), 0.1);//Zoom in
+			fractal.setBounds(glm::vec2(0.1, 0.0), 0);
 		}
 		//zoom in button
-		if (gui.Button(40, 40, 160, 180, 0))
+		if (gui.Button(40, 40, 160, 80, gui.plus))
 		{
-			fractal.setBounds(glm::vec2(0.0, 0.0), -0.1);//Zoom in
+			fractal.setBounds(glm::vec2(0.0, 0.0), 0.1);
+		}
+		//zoom out button
+		if (gui.Button(40, 40, 160, 180, gui.minus))
+		{
+			fractal.setBounds(glm::vec2(0.0, 0.0), -0.1);
 		}
 		gui.resetGui();
 

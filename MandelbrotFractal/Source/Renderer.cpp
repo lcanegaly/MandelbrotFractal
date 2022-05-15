@@ -1,8 +1,10 @@
 #include "Renderer.h"
 #include <stdio.h>
 #include "glm.hpp"
-#include <gtc/type_ptr.hpp>
 #include <gtc/matrix_transform.hpp>
+#include <gtc/type_ptr.hpp>
+
+
 
 void Renderer::Init(int width, int height) {
 
@@ -101,7 +103,7 @@ void Renderer::DrawFractal(int windowWidth, int windowHeight, glm::vec2 center =
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void Renderer::Draw(unsigned char* tex, int posX, int posY, int width, int height)
+void Renderer::Draw(unsigned char* tex, int posX, int posY, int width, int height, float rotation)
 {
 	glUseProgram(menuProgram);
 
@@ -112,7 +114,10 @@ void Renderer::Draw(unsigned char* tex, int posX, int posY, int width, int heigh
 
 	glm::mat4 model = glm::mat4(1.0f);
 	model = glm::translate(model, glm::vec3(position, 0.0f));
+	model = glm::rotate(model, glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f));
 	model = glm::scale(model, glm::vec3(size, 1.0f));
+
+
 	GLint uniformTranslate = glGetUniformLocation(this->program, "translate");
 	glUniformMatrix4fv(uniformTranslate, 1, GL_FALSE, glm::value_ptr(model));
 

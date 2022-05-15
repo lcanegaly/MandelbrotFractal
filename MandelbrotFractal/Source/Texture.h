@@ -12,9 +12,13 @@ public:
 	void setPixelColor(glm::vec3 color);
 	void setPixelColor(glm::vec2 pos, glm::vec3 color);
 	glm::vec3 getPixelColor(glm::vec2 pos);
+	void setRotation(float rotation);
+	float getRotation();
 	void clearTexture();
 	void line(int x1, int y1, int x2, int y2);
 	void arrow(int x, int y, int sizeX, int sizeY);
+	void plus(int posX, int posY, int sizeX, int sizeY);
+	void minus(int posX, int posY, int sizeX, int sizeY);
 	void floodFill(glm::vec2 pos, glm::vec3 color, glm::vec3 match);
 	glm::vec2 size();
 
@@ -23,4 +27,5 @@ private:
 	unsigned char* pixel = nullptr;
 	int pixelPosition = 0;
 	long textureSize = 0;
+	float rotation = 0.0f;
 };

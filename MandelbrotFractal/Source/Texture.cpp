@@ -22,6 +22,7 @@ unsigned char* Texture::getTexture()
 
 void Texture::setPixelColor(glm::vec3 color)
 {
+	//each pixel is vec3
 	//set red value
 	pixel[pixelPosition] = color.x;
 	++pixelPosition;
@@ -58,6 +59,16 @@ glm::vec3 Texture::getPixelColor(glm::vec2 pos)
 	return color;
 }
 
+void Texture::setRotation(float rotation)
+{
+	this->rotation = rotation;
+}
+
+float Texture::getRotation()
+{
+	return rotation;
+}
+
 void Texture::line(int x1, int y1, int x2, int y2){
 	
 	float slope = 0.0f;
@@ -65,60 +76,60 @@ void Texture::line(int x1, int y1, int x2, int y2){
 	if (x1!=x2){
 		slope = (float(y1-y2))/(float(x1-x2));
 	}else{
-		int ity = (y1 > y2) ? y2 : y1;
+		int yStartingPoint = (y1 > y2) ? y2 : y1;
 		for (int y = 0; y < abs(y1-y2); ++y){
 			int x = x1;
-			int position = 3*(x+((ity+y)*int(this->texSize.x)));
-			pixel[position-1]= 100.0f;
+			int position = 3*(x+((yStartingPoint+y)*int(this->texSize.x)));
 			pixel[position]= 100.0f;
 			pixel[position+1]= 100.0f;
+			pixel[position+2]= 100.0f;
 		}
 		return;
 	}
 	
 	if (y2 == y1){
-		int itx = (x1 > x2) ? x2 : x1;
+		int xStartingPoint = (x1 > x2) ? x2 : x1;
 		for (int x = 0; x < abs(x1 - x2); ++x) {
 			int y = y1;
-			int position = 3 * (itx+x + (y * int(this->texSize.x)));
-			pixel[position - 1] = 100.0f;
+			int position = 3 * (xStartingPoint+x + (y * int(this->texSize.x)));
 			pixel[position] = 100.0f;
-			pixel[position + 1] = 100.0f;
+			pixel[position+1] = 100.0f;
+			pixel[position+2] = 100.0f;
 		}
 		return;
 	}
 		
-	int itx = 0, ity = 0;
+	int xStartingPoint = 0, yStartingPoint = 0;
 
 	if (slope > 0) {
 		if (x1 > x2)
-			itx = x2, ity = y2;
+			xStartingPoint = x2, yStartingPoint = y2;
 		else
-			itx = x1, ity = y1;
+			xStartingPoint = x1, yStartingPoint = y1;
 	}
 	else if(slope < 0) {
 		if (x1 > x2)
-			itx = x2, ity = y1;
+			xStartingPoint = x2, yStartingPoint = y1;
 		else
-			itx = x1, ity = y2;
+			xStartingPoint = x1, yStartingPoint = y2;
 	}
 
 	float b = y1 - (slope * x1);
 	
 	for (int x = 0; x < abs(x1-x2); ++x){
-		int y = slope*(itx+x)+b;
-		int position = 3*((itx+x)+(y*int(this->texSize.x)));
-		pixel[position-1]= 100.0f;
+		int y = slope*(xStartingPoint+x)+b;
+		int position = 3*((xStartingPoint+x)+(y*int(this->texSize.x)));
 		pixel[position]= 100.0f;
 		pixel[position+1]= 100.0f;
+		pixel[position+2]= 100.0f;
 	}
 	
 	for (int y = 0; y < abs(y1-y2); ++y){
-		int x = ((ity+y)-b)/slope;
-		int position = 3*(x+((ity+y)*int(this->texSize.x)));
-		pixel[position-1]= 100.0f;
+		int x = ((yStartingPoint+y)-b)/slope;
+		int position = 3*(x+((yStartingPoint+y)*int(this->texSize.x)));
 		pixel[position]= 100.0f;
 		pixel[position+1]= 100.0f;
+		pixel[position+2]= 100.0f;
 	}
 }
 
@@ -132,6 +143,41 @@ void Texture::arrow(int x, int y, int sizeX, int sizeY){
 
 	floodFill(glm::vec2(x, y - y * 0.5), glm::vec3(10, 10, 10), glm::vec3(getPixelColor(glm::vec2(x, y - y * 0.5))));
 
+}
+
+void Texture::plus(int posX, int posY, int sizeX, int sizeY)
+{
+	//top, bottom
+	line(sizeX - (sizeX * 0.25f), sizeY + (sizeY * 0.75f), sizeX + (sizeX * 0.25f), sizeY + (sizeY * 0.75f));
+	line(sizeX - (sizeX * 0.25f), sizeY - (sizeY * 0.75f), sizeX + (sizeX * 0.25f), sizeY - (sizeY * 0.75f));
+	//left right
+	line(sizeX - (sizeX * 0.75f), sizeY + (sizeY * 0.25f), sizeX - (sizeX * 0.75f), sizeY - (sizeY * 0.25f));
+	line(sizeX + (sizeX * 0.75f), sizeY + (sizeY * 0.25f), sizeX + (sizeX * 0.75f), sizeY - (sizeY * 0.25f));
+	//top to middle
+	line(sizeX - (sizeX * 0.25f), sizeY + (sizeY * 0.75f), sizeX - (sizeX * 0.25f), sizeY + (sizeY * 0.25f));
+	line(sizeX + (sizeX * 0.25f), sizeY + (sizeY * 0.75f), sizeX + (sizeX * 0.25f), sizeY + (sizeY * 0.25f));
+	//bottom to middle
+	line(sizeX - (sizeX * 0.25f), sizeY - (sizeY * 0.75f), sizeX - (sizeX * 0.25f), sizeY - (sizeY * 0.25f));
+	line(sizeX + (sizeX * 0.25f), sizeY - (sizeY * 0.75f), sizeX + (sizeX * 0.25f), sizeY - (sizeY * 0.25f));
+	//left to middle
+	line(sizeX - (sizeX * 0.75f), sizeY + (sizeY * 0.25f), sizeX - (sizeX * 0.25f), sizeY + (sizeY * 0.25f));
+	line(sizeX - (sizeX * 0.75f), sizeY - (sizeY * 0.25f), sizeX - (sizeX * 0.25f), sizeY - (sizeY * 0.25f));
+	//right to middle
+	line(sizeX + (sizeX * 0.75f), sizeY + (sizeY * 0.25f), sizeX + (sizeX * 0.25f), sizeY + (sizeY * 0.25f));
+	line(sizeX + (sizeX * 0.75f), sizeY - (sizeY * 0.25f), sizeX + (sizeX * 0.25f), sizeY - (sizeY * 0.25f));
+
+	floodFill(glm::vec2(posX, posY), glm::vec3(10, 10, 10), glm::vec3(getPixelColor(glm::vec2(posX, posY))));
+}
+
+
+
+void Texture::minus(int posX, int posY, int sizeX, int sizeY)
+{
+	line(sizeX - (sizeX * 0.75f), sizeY + (sizeY * 0.25f), sizeX + (sizeX * 0.75f), sizeY + (sizeY * 0.25f));
+	line(sizeX - (sizeX * 0.75f), sizeY - (sizeY * 0.25f), sizeX + (sizeX * 0.75f), sizeY - (sizeY * 0.25f));
+	line(sizeX - (sizeX * 0.75f), sizeY - (sizeY * 0.25f), sizeX - (sizeX * 0.75f), sizeY + (sizeY * 0.25f));
+	line(sizeX + (sizeX * 0.75f), sizeY - (sizeY * 0.25f), sizeX + (sizeX * 0.75f), sizeY + (sizeY * 0.25f));
+	floodFill(glm::vec2(posX, posY), glm::vec3(10, 10, 10), glm::vec3(getPixelColor(glm::vec2(posX, posY))));
 }
 
 //needs some rethinking..

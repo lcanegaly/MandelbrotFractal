@@ -21,14 +21,18 @@ public:
 	int defaultWidth = 40;
 	int defaultHeight = 40;
 	void addMouseInputEvent(int button, int action, double xpos, double ypos);
-	bool Button(int width, int height, int posX, int posY, int texture);
+	bool Button(int width, int height, int posX, int posY, int texture, float rotation = 0);
 	void resetGui();
 	Renderer& guiRenderer;
 
+	enum Icons {up_arrow, down_arrow, left_arrow, right_arrow, minus, plus};
+
 private:
-	
+
+	const static int numTextures = 6;
 	bool drawn = false;
 	mouseInput mouse;
-	Texture tex[6];
+	Texture tex[numTextures];
+	
 };
 
