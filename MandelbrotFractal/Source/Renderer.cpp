@@ -4,8 +4,10 @@
 #include <gtc/type_ptr.hpp>
 #include <gtc/matrix_transform.hpp>
 
-Renderer::Renderer(int width, int height) : width { width },  height { height } {
+void Renderer::Init(int width, int height) {
 
+	this->width = width;
+	this->height = height;
 
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);

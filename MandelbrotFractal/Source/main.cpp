@@ -17,7 +17,6 @@ Fractal* fractal_ptr = nullptr;
 GLFWwindow* window = nullptr;
 Gui* gui_ptr = nullptr;
 
-
 int main(void)
 {
 	if (!glfwInit())
@@ -33,16 +32,16 @@ int main(void)
 	glfwSetMouseButtonCallback(window, mouse_button_callback);
 	glewInit();
 
-	Renderer renderer(WIDTH, HEIGHT);
+	Renderer& renderer = Renderer::Get();
+	Renderer::Get().Init(WIDTH, HEIGHT);
 
-	Fractal fractal(glm::vec2(WIDTH, HEIGHT), glm::vec2(-0.5f, 0.0f));
-	fractal.renderer = &renderer;
+	Fractal fractal(glm::vec2(WIDTH, HEIGHT), glm::vec2(-0.5f, 0.0f), renderer);
 	fractal_ptr = &fractal; 
 
-
-	Gui gui;
+	
+	Gui gui(renderer);
 	gui_ptr = &gui;
-	gui.guiRenderer = &renderer;
+
 
 	while (!glfwWindowShouldClose(window))
 	{

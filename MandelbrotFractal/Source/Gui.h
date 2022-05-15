@@ -16,18 +16,19 @@ struct mouseInput
 class Gui
 {
 public:
-	Gui();
+	Gui(Renderer& rend);
 	~Gui();
 	int defaultWidth = 40;
 	int defaultHeight = 40;
 	void addMouseInputEvent(int button, int action, double xpos, double ypos);
 	bool Button(int width, int height, int posX, int posY, int texture);
 	void resetGui();
-	Renderer* guiRenderer;
+	Renderer& guiRenderer;
 
 private:
+	
 	bool drawn = false;
 	mouseInput mouse;
-	Texture tex[5];
+	Texture tex[6];
 };
 

@@ -8,7 +8,14 @@ class Renderer
 
 public:
 
-	Renderer(int width, int height);
+	Renderer(const Renderer&) = delete;
+
+	static Renderer& Get() {
+		static Renderer instance;
+		return instance;
+	}
+
+	void Init(int width, int height);
 	void DrawFractal(int windowWidth, int windowHeight, glm::vec2 center, double zoom);
 	void Draw(unsigned char* tex, int posX, int posY, int width, int height);
 	void SetActiveTexture(int texSlot);
@@ -19,6 +26,7 @@ public:
 	
 private:
 
+	Renderer() {};
 	int width, height;
 	GLuint vbo;
 	unsigned int vao;

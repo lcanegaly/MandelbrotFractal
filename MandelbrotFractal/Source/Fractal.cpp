@@ -3,8 +3,9 @@
 #include <chrono>
 
 
-Fractal::Fractal(glm::vec2 screenSize, glm::vec2 centerPoint) : screenSize{ screenSize }, centerPoint{ centerPoint }
+Fractal::Fractal(glm::vec2 screenSize, glm::vec2 centerPoint, Renderer& renderer) : screenSize{ screenSize }, centerPoint{ centerPoint }, renderer{renderer}
 {
+
 	this->zoom = 2.0;
 
 }
@@ -29,7 +30,7 @@ void Fractal::setBounds(glm::vec2 centerPoint, double zoom)
 
 void Fractal::display()
 {
-	renderer->DrawFractal(screenSize.x, screenSize.y, centerPoint, zoom);
+	renderer.DrawFractal(screenSize.x, screenSize.y, centerPoint, zoom);
 }
 
 /*

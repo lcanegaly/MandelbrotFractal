@@ -1,10 +1,10 @@
 #include "Gui.h"
 #include <cmath>
 
-Gui::Gui() 
+Gui::Gui(Renderer& rend): guiRenderer { rend }
 {
 	this->resetGui();
-	for (int i = 0; i < 6; ++i) {
+	for (int i = 0; i < 3; ++i) {
 		tex[i].createTexture(glm::vec2(defaultWidth, defaultHeight));
 		for (int x = 0; x < (defaultWidth * defaultHeight); x++)
 		{
@@ -31,7 +31,7 @@ void Gui::addMouseInputEvent(int button, int action, double xpos, double ypos)
 
 bool Gui::Button(int width, int height, int posX, int posY, int texture)
 {
-	guiRenderer->Draw(tex[texture].getTexture(), posX, posY, width, height);
+	guiRenderer.Draw(tex[texture].getTexture(), posX, posY, width, height);
 
 	if (this->mouse.leftClick) {
 		int x = std::abs(mouse.mouseX - posX);
@@ -49,6 +49,6 @@ void Gui::resetGui()
 {
 	drawn = false;
 	mouse.Clear();
-	tex[0].clearTexture();
+	//tex[0].clearTexture();
 }
 
