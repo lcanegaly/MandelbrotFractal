@@ -5,9 +5,7 @@
 
 class Renderer
 {
-
 public:
-
 	Renderer(const Renderer&) = delete;
 
 	static Renderer& Get() {
@@ -19,13 +17,12 @@ public:
 	void DrawFractal(int windowWidth, int windowHeight, glm::vec2 center, double zoom);
 	void Draw(unsigned char* tex, int posX, int posY, int width, int height, float rotation = 0);
 	void SetActiveTexture(int texSlot);
-	void PrintStatus();
+	void PrintStatus() const;
 	
 	glm::vec2 ConvertNormToPixel(glm::vec2 xy);
 	glm::vec2 ConvertPixelToNorm(int x, int y);
 	
 private:
-
 	Renderer() {};
 	int width, height;
 	GLuint vbo;
@@ -95,7 +92,7 @@ private:
 
 		//"const vec3 colorArray[4]=vec3[4](vec3(1.0,0.0,0.0), vec3(0.0,1.0,0.0), vec3(0.0,0.0,1.0), vec3(0.0,0.0,0.0) );\n"
 
-		"while (x*x + y*y <= 2.0*2.0 && it < 8000.0)\n"
+		"while (x*x + y*y <= 2.0*2.0 && it < 1000.0)\n"
 		"{\n"
 			"float xtemp = x*x - y*y + cx;\n"
 			"y = 2.0*x*y + cy;\n"
@@ -107,11 +104,11 @@ private:
 
 		"vec3 col = vec3(1.0*uv.x, 1.0*uv.y, 0.0);\n"
 
-		"if (it > 4001.0)\n"
+		"if (it > 501.0)\n"
 		"{\n"
 		"col = vec3(0.0, 0.0, 0.0);\n"
 		"}\n"
-		"if (it < 4000.0)\n"
+		"if (it < 500.0)\n"
 		"{\n"
 		"col = vec3(0.0, 0.25+0.01*it, 0.1*it);\n"
 		"}\n"

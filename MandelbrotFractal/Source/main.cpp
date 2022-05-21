@@ -48,39 +48,39 @@ int main(void)
 		glClearColor(0.55f, 0.3f, 1.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 	
-		fractal.display();
+		fractal.Display();
 
 		//up button
 		if (gui.Button(40, 40, 80, 80, gui.up_arrow)) 
 		{
-			fractal.setBounds(glm::vec2(0.0, 0.1), 0);
+			fractal.SetBounds(glm::vec2(0.0, 0.1), 0);
 		}
 		//down button
 		if (gui.Button(40, 40, 80, 180, gui.down_arrow))
 		{
-			fractal.setBounds(glm::vec2(0.0, -0.1), 0);
+			fractal.SetBounds(glm::vec2(0.0, -0.1), 0);
 		}
 		//left button
 		if (gui.Button(40, 40, 40, 130, gui.left_arrow))
 		{
-			fractal.setBounds(glm::vec2(-0.1, 0.0), 0);
+			fractal.SetBounds(glm::vec2(-0.1, 0.0), 0);
 		}
 		//right button
 		if (gui.Button(40, 40, 120, 130, gui.right_arrow))
 		{
-			fractal.setBounds(glm::vec2(0.1, 0.0), 0);
+			fractal.SetBounds(glm::vec2(0.1, 0.0), 0);
 		}
 		//zoom in button
 		if (gui.Button(40, 40, 160, 80, gui.plus))
 		{
-			fractal.setBounds(glm::vec2(0.0, 0.0), 0.1);
+			fractal.SetBounds(glm::vec2(0.0, 0.0), 0.1);
 		}
 		//zoom out button
-		if (gui.Button(40, 40, 160, 180, gui.minus))
+		if (gui.Button(40, 40, 160, 180, gui.DrawMinus))
 		{
-			fractal.setBounds(glm::vec2(0.0, 0.0), -0.1);
+			fractal.SetBounds(glm::vec2(0.0, 0.0), -0.1);
 		}
-		gui.resetGui();
+		gui.ResetGui();
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
@@ -94,13 +94,11 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 {
 	double xpos, ypos;
 	glfwGetCursorPos(window, &xpos, &ypos);
-
 	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
-		gui_ptr->addMouseInputEvent(0, 1, xpos, ypos);
+		gui_ptr->AddMouseInputEvent(0, 1, xpos, ypos);
 	}
-	
 	if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS) {
-		gui_ptr->addMouseInputEvent(1, 1, xpos, ypos);
+		gui_ptr->AddMouseInputEvent(1, 1, xpos, ypos);
 	}
 
 }
@@ -108,21 +106,21 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
 	if (key == GLFW_KEY_LEFT && action == GLFW_PRESS)
-		fractal_ptr->setBounds(glm::vec2(-0.1, 0.0), 0);//left
+		fractal_ptr->SetBounds(glm::vec2(-0.1, 0.0), 0);//left
 	
 	if (key == GLFW_KEY_RIGHT && action == GLFW_PRESS)
-		fractal_ptr->setBounds(glm::vec2(0.1, 0.0), 0); //right
+		fractal_ptr->SetBounds(glm::vec2(0.1, 0.0), 0); //right
 
 	if (key == GLFW_KEY_UP && action == GLFW_PRESS)
-		fractal_ptr->setBounds(glm::vec2(0.0, 0.1), 0); //up
+		fractal_ptr->SetBounds(glm::vec2(0.0, 0.1), 0); //up
 
 	if (key == GLFW_KEY_DOWN && action == GLFW_PRESS)
-		fractal_ptr->setBounds(glm::vec2(0.0, -0.1), 0); //down
+		fractal_ptr->SetBounds(glm::vec2(0.0, -0.1), 0); //down
 
 	if (key == GLFW_KEY_SPACE && action == GLFW_PRESS) 
-		fractal_ptr->setBounds(glm::vec2(0.0, 0.0), -0.1);//Zoom out
+		fractal_ptr->SetBounds(glm::vec2(0.0, 0.0), -0.1);//Zoom out
 
 	if (key == GLFW_KEY_LEFT_CONTROL && action == GLFW_PRESS) 
-		fractal_ptr->setBounds(glm::vec2(0.0, 0.0), 0.1);//Zoom in
+		fractal_ptr->SetBounds(glm::vec2(0.0, 0.0), 0.1);//Zoom in
 
 }

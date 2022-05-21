@@ -1,50 +1,31 @@
 #include "Fractal.h"
 #include <iostream>
-#include <chrono>
 
 
-Fractal::Fractal(glm::vec2 screenSize, glm::vec2 centerPoint, Renderer& renderer) : screenSize{ screenSize }, centerPoint{ centerPoint }, renderer{renderer}
+Fractal::Fractal(glm::vec2 screenSize, glm::vec2 centerPoint, Renderer& renderer) 
+	: m_Calculated{false}, m_ScreenSize{ screenSize }, m_CenterPoint{ centerPoint }, m_Renderer{ renderer }
 {
-
-	this->zoom = 2.0;
-
+	m_Zoom = 2.0;
 }
 
 
-void Fractal::setBounds(glm::vec2 centerPoint, double zoom)
+void Fractal::SetBounds(glm::vec2 centerPoint, double zoom)
 {
-	
-	this->calculated = false;
-
-	this->centerPoint += centerPoint * glm::vec2(this->zoom, this->zoom);
+	m_Calculated = false;
+	m_CenterPoint += centerPoint * glm::vec2(m_Zoom, m_Zoom);
 	if (zoom > 0)
 	{
-		this->zoom = this->zoom / 1.1;
+		m_Zoom /= 1.1;
 	}
 	if (zoom < 0)
 	{
-		this->zoom = this->zoom * 1.1;
+		m_Zoom *= 1.1;
 	}
 }
 
 
-void Fractal::display()
+void Fractal::Display() const
 {
-	renderer.DrawFractal(screenSize.x, screenSize.y, centerPoint, zoom);
+	m_Renderer.DrawFractal(m_ScreenSize.x, m_ScreenSize.y, m_CenterPoint, m_Zoom);
 }
 
-/*
-void Fractal::translateCoord(std::complex<double>* comp, int x, int y)
-{
-	std::complex<double> point(*comp);
-	long double multiplierx = (this->zoom / this->screenSize.x);
-	long double multipliery = (this->zoom / this->screenSize.y);
-
-	long double start = this->zoom * -0.5 + this->centerPoint.x;
-	comp->real(start + (x * multiplierx));
-
-	start = this->zoom * -0.5 + this->centerPoint.y;
-	comp->imag(start + (y * multipliery));
-
-}
-*/

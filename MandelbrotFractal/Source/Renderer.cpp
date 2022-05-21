@@ -6,7 +6,8 @@
 
 
 
-void Renderer::Init(int width, int height) {
+void Renderer::Init(int width, int height) 
+{
 
 	this->width = width;
 	this->height = height;
@@ -150,7 +151,7 @@ void Renderer::SetActiveTexture(int texSlot)
 
 }
 
-void Renderer::PrintStatus()
+void Renderer::PrintStatus() const
 {
 
 	std::cout << "Texture ID: " << this->texture << std::endl << "VAO: " << this->vao << std::endl << "VBO: " << this->vbo << std::endl;
