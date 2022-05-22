@@ -7,25 +7,17 @@
 class Fractal 
 {
 public:
-
-	Fractal(glm::vec2 screenSize, glm::vec2 centerPoint);
-	void calculate();
-
+	Fractal(glm::vec2 screenSize, glm::vec2 centerPoint, Renderer& renderer);
 	//sets the coordinate plane bounds
-	void setBounds(glm::vec2 centerPoint, double zoom);
+	void SetBounds(glm::vec2 centerPoint, double zoom);
+	void Display() const;
 
-	void display();
-
-	//takes pixel location and converts to point within drawing bounds
-	void translateCoord(std::complex<double>* comp, int x, int y);
-
-	Renderer* renderer;
 private:
-	glm::vec2 centerPoint;
-	double zoom;
-	double iterationLimit = 500;
-	glm::vec2 screenSize;
-	
-	Texture texture;
-	bool calculated = false;
+	double m_Zoom;
+	const double m_IterationLimit = 500;
+	bool m_Calculated;
+	glm::vec2 m_ScreenSize;
+	glm::vec2 m_CenterPoint;
+	Renderer& m_Renderer;
+
 };

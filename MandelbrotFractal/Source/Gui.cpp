@@ -1,109 +1,68 @@
 #include "Gui.h"
 #include <cmath>
 
-Gui::Gui() 
+Gui::Gui(Renderer& renderer)
+	: m_GuiRenderer{ renderer }, m_DefaultHeight{ 40 }, m_DefaultWidth{40}
 {
-	/*
-	//1200, 1000 window size
-	tex.createTexture(glm::vec2(100, 100));
-	for (int x = 0; x < (100 * 100); x++)
-	{
-		tex.setPixelColor(glm::vec3(255, 0, 0));
+	ResetGui();
+	for (int i = 0; i < m_NumTextures; ++i) {
+		m_Textures[i].CreateTexture(glm::vec2(m_DefaultWidth, m_DefaultHeight));
+		for (int x = 0; x < (m_DefaultWidth * m_DefaultHeight); ++x)
+		{
+			m_Textures[i].SetPixelColor(glm::vec3(0, 255, 0));
+		}
 	}
-
-	tex2.createTexture(glm::vec2(100, 100));
-	for (int x = 0; x < (100 * 100); x++)
-	{
-		tex2.setPixelColor(glm::vec3(0, 255, 0));
-	}
-	tex3.createTexture(glm::vec2(100, 100));
-	for (int x = 0; x < (100 * 100); x++)
-	{
-		tex3.setPixelColor(glm::vec3(0, 0, 255));
-	}
-	*/
-	this->resetGui();
-	//this->guiRenderer->PrintStatus();
+	//create button textures to be used with Gui object
+	//up DrawArrow
+	m_Textures[Icons::up_arrow].DrawArrow(m_DefaultWidth / 2, m_DefaultHeight - (m_DefaultHeight / 4), m_DefaultWidth / 2, m_DefaultHeight / 2);
+	//down DrawArrow
+	m_Textures[Icons::down_arrow].DrawArrow(m_DefaultWidth / 2, m_DefaultHeight - (m_DefaultHeight / 4), m_DefaultWidth / 2, m_DefaultHeight / 2);
+	m_Textures[Icons::down_arrow].SetRotation(180.0f);
+	//left DrawArrow
+	m_Textures[Icons::left_arrow].DrawArrow(m_DefaultWidth / 2, m_DefaultHeight - (m_DefaultHeight / 4), m_DefaultWidth / 2, m_DefaultHeight / 2);
+	m_Textures[Icons::left_arrow].SetRotation(90.0f);
+	//right DrawArrow
+	m_Textures[Icons::right_arrow].DrawArrow(m_DefaultWidth / 2, m_DefaultHeight - (m_DefaultHeight / 4), m_DefaultWidth / 2, m_DefaultHeight / 2);
+	m_Textures[Icons::right_arrow].SetRotation(-90.0f);
+	//DrawMinus
+	m_Textures[Icons::DrawMinus].DrawMinus(m_DefaultWidth/2, m_DefaultHeight - (m_DefaultHeight / 2), m_DefaultWidth/ 2, m_DefaultHeight / 2);
+	//plus
+	m_Textures[Icons::plus].DrawPlus(m_DefaultWidth / 2, m_DefaultHeight - (m_DefaultHeight / 2), m_DefaultWidth / 2, m_DefaultHeight / 2);
 }
 
-void Gui::addMouseInputEvent(int button, int action, double xpos, double ypos)
+Gui::~Gui()
+{
+}
+
+void Gui::AddMouseInputEvent(int button, int action, double xpos, double ypos)
 {
 
-	(button == 0 && action == 1) ? mouse.leftClick = true : mouse.leftClick = false;
-	(button == 1 && action == 1) ? mouse.rightClick = true : mouse.rightClick = false;
-	mouse.mouseX = xpos;
-	mouse.mouseY = ypos;
+	(button == 0 && action == 1) ? m_Mouse.m_LeftClick = true : m_Mouse.m_LeftClick = false;
+	(button == 1 && action == 1) ? m_Mouse.m_RightClick = true : m_Mouse.m_RightClick = false;
+	m_Mouse.m_MouseX = xpos;
+	m_Mouse.m_MouseY = ypos;
 
 }
 
-bool Gui::Button(int width, int height, int posX, int posY, int texure)
+bool Gui::Button(int width, int height, int posX, int posY, int texture, float rotation)
 {
-	if (!drawn)
-	{
-		drawn = true;
-		tex.createTexture(glm::vec2(width, height));
-		for (int x = 0; x < (width * height); x++)
-		{
-			tex.setPixelColor(glm::vec3(255, 0, 0));
-		}
+	m_GuiRenderer.Draw(m_Textures[texture].GetTexture(), posX, posY, width, height, m_Textures[texture].GetRotation());
 
-		tex2.createTexture(glm::vec2(width, height));
-		for (int x = 0; x < (width * height); x++)
-		{
-			tex2.setPixelColor(glm::vec3(0, 255, 0));
-		}
-		tex3.createTexture(glm::vec2(width, height));
-		for (int x = 0; x < (width * height); x++)
-		{
-			tex3.setPixelColor(glm::vec3(0, 0, 255));
-		}
-
-	}
-	//convert pixel to normalized to pass to draw call.
-
-	if (texure == 1) {
-		//guiRenderer->Draw(tex.getTexture(), glm::vec2(posX, posY), glm::vec2(width, height));
-		guiRenderer->Draw(tex.getTexture(), posX, posY, width, height);
-	}
-	if (texure == 2) {
-		//guiRenderer->Draw(tex2.getTexture(), glm::vec2(posX, posY), glm::vec2(width, height));
-		guiRenderer->Draw(tex2.getTexture(), posX, posY, width, height);
-	}
-	if (texure == 3) {
-		//guiRenderer->Draw(tex3.getTexture(), glm::vec2(posX, posY), glm::vec2(width, height));
-		guiRenderer->Draw(tex3.getTexture(), posX, posY, width, height);
-	}
-
-
-
-	if (this->mouse.leftClick) {
-
-		
-		int x = std::abs(mouse.mouseX - posX);
-		int y = std::abs(mouse.mouseY - posY);
-
-		/*
-		printf("Mouse pos is X:%f Y:%f \n", mouse.mouseX, mouse.mouseY);
-		printf("Mouse offset is X:%d Y:%d \n", x, y);
-		printf("Mouse Box is X:%d Y:%d \n", posX, posY);
-		*/
+	if (m_Mouse.m_LeftClick) {
+		int x = std::abs(m_Mouse.m_MouseX - posX);
+		int y = std::abs(m_Mouse.m_MouseY - posY);
 
 		if ( (x <= 0.5 * width) && ( y <= 0.5 * height ))
 		{
 			return true;
 		}
-			
 	}
-
 	return false;
 }
 
-void Gui::resetGui()
+void Gui::ResetGui()
 {
-	drawn = false;
-	mouse.Clear();
-	tex.clearTexture();
-	tex2.clearTexture();
-	tex3.clearTexture();
+	m_IsDrawn = false;
+	m_Mouse.Clear();
 }
 
