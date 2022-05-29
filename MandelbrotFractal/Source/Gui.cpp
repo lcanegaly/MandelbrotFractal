@@ -44,6 +44,11 @@ void Gui::AddMouseInputEvent(int button, int action, double xpos, double ypos)
 
 }
 
+void Gui::AddMouseInputEvent(MouseInput& m)
+{
+	m_Mouse = m;
+}
+
 bool Gui::Button(int width, int height, int posX, int posY, int texture, float rotation)
 {
 	m_GuiRenderer.Draw(m_Textures[texture].GetTexture(), posX, posY, width, height, m_Textures[texture].GetRotation());

@@ -1,19 +1,7 @@
 #pragma once
 #include "Renderer.h"
 #include "Texture.h"
-#include <iostream>
-
-struct MouseInput
-{
-	double m_MouseX;
-	double m_MouseY;
-	bool m_LeftClick;
-	bool m_RightClick;
-
-	MouseInput() 
-		: m_MouseX{ 0 }, m_MouseY{ 0 }, m_LeftClick{ false }, m_RightClick{ false }{};
-	void Clear(){ m_MouseX = 0; m_MouseY = 0; m_LeftClick = false; m_RightClick = false; };
-};
+#include "MouseInput.h"
 
 class Gui
 {
@@ -22,6 +10,7 @@ public:
 	~Gui();
 
 	void AddMouseInputEvent(int button, int action, double xpos, double ypos);
+	void AddMouseInputEvent(MouseInput& m);
 	bool Button(int width, int height, int posX, int posY, int texture, float rotation = 0);
 	void ResetGui();
 	enum Icons {up_arrow, down_arrow, left_arrow, right_arrow, DrawMinus, plus};
